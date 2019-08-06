@@ -1,0 +1,34 @@
+.site-header__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ff4e00;
+  color: #ffffff;
+}
+
+.site-header__app-name-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  outline: 0;
+}
+
+.site-header__logo-container {
+  padding-right:16px;
+  border-right: solid 1px #cc3e00;
+}
+
+.site-header__logo {
+  height: 30px;
+  padding-top: 6px;
+}
+
+.site-header__app-name {
+  font-size: x-large;
+  padding: 0px 16px;
+}
+
+.site-header__user-name {
+  cursor: pointer;
+  padding: 0px 16px;
+}

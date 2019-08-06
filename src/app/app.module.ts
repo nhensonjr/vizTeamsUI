@@ -5,10 +5,18 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
+import { SiteHeaderComponent } from './components/site-header/site-header.component';
+import { ContextBarComponent } from './components/context-bar/context-bar.component';
+import { TeamListComponent } from './components/team-list/team-list.component';
+import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SiteHeaderComponent,
+    ContextBarComponent,
+    TeamListComponent,
+    TeamDetailComponent
   ],
   imports: [
     BrowserModule,

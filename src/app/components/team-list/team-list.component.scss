@@ -1,0 +1,43 @@
+.team-list__team-container {
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+  max-width: 40vw;
+}
+
+.team-list__team-name {
+  cursor: pointer;
+  color: #526173;
+  font-size: x-large;
+}
+
+.team-list__content-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.team-list__member-container {
+  margin: 0 8px;
+  display: flex;
+  width: 300px;
+}
+
+.team-list__member-photo {
+  margin: 8px;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.team-list__info-container {
+  margin: 16px 8px;
+  color: #526173;
+}
+
+.team-list__member-name {
+  font-size: large;
+}
+
+.team-list__member-title {
+}
