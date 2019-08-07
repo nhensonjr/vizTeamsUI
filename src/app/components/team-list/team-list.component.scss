@@ -1,8 +1,8 @@
 .team-list__team-container {
   display: flex;
   flex-direction: column;
-  margin: 24px;
-  max-width: 40vw;
+  margin: 8px;
+  max-width: 30vw;
 }
 
 .team-list__team-name {
@@ -20,7 +20,7 @@
 .team-list__member-container {
   margin: 0 8px;
   display: flex;
-  width: 300px;
+  width: 250px;
 }
 
 .team-list__member-photo {

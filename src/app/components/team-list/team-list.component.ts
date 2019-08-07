@@ -38,6 +38,8 @@ export class TeamListComponent implements OnInit {
       members: [
         {id: 1, firstName: 'Ricky', lastName: 'Bobby', title: 'El Diablo', photoUrl: '/assets/avatar.png'},
         {id: 2, firstName: 'Cal', lastName: 'Naughton Jr', title: 'Magic Man', photoUrl: '/assets/avatar.png'},
+        {id: 3, firstName: 'Brennan', lastName: 'Huff', title: 'Night Hawk', photoUrl: '/assets/avatar.png'},
+        {id: 4, firstName: 'Dale', lastName: 'Doback', title: 'Dragon', photoUrl: '/assets/avatar.png'},
       ]
     },
     {
@@ -45,6 +47,30 @@ export class TeamListComponent implements OnInit {
       name: 'Prestige Worldwide',
       description: 'The rest team',
       members: [
+        {id: 1, firstName: 'Ricky', lastName: 'Bobby', title: 'El Diablo', photoUrl: '/assets/avatar.png'},
+        {id: 2, firstName: 'Cal', lastName: 'Naughton Jr', title: 'Magic Man', photoUrl: '/assets/avatar.png'},
+        {id: 3, firstName: 'Brennan', lastName: 'Huff', title: 'Night Hawk', photoUrl: '/assets/avatar.png'},
+        {id: 4, firstName: 'Dale', lastName: 'Doback', title: 'Dragon', photoUrl: '/assets/avatar.png'},
+      ]
+    },
+    {
+      id: 1,
+      name: 'Shake & Bake',
+      description: 'The best team',
+      members: [
+        {id: 1, firstName: 'Ricky', lastName: 'Bobby', title: 'El Diablo', photoUrl: '/assets/avatar.png'},
+        {id: 2, firstName: 'Cal', lastName: 'Naughton Jr', title: 'Magic Man', photoUrl: '/assets/avatar.png'},
+        {id: 3, firstName: 'Brennan', lastName: 'Huff', title: 'Night Hawk', photoUrl: '/assets/avatar.png'},
+        {id: 4, firstName: 'Dale', lastName: 'Doback', title: 'Dragon', photoUrl: '/assets/avatar.png'},
+      ]
+    },
+    {
+      id: 2,
+      name: 'Prestige Worldwide',
+      description: 'The rest team',
+      members: [
+        {id: 1, firstName: 'Ricky', lastName: 'Bobby', title: 'El Diablo', photoUrl: '/assets/avatar.png'},
+        {id: 2, firstName: 'Cal', lastName: 'Naughton Jr', title: 'Magic Man', photoUrl: '/assets/avatar.png'},
         {id: 3, firstName: 'Brennan', lastName: 'Huff', title: 'Night Hawk', photoUrl: '/assets/avatar.png'},
         {id: 4, firstName: 'Dale', lastName: 'Doback', title: 'Dragon', photoUrl: '/assets/avatar.png'},
       ]
