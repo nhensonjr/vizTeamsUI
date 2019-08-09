@@ -14,3 +14,7 @@ app-team-list {
   padding: 16px 0;
 }
 
+.mat-expansion-panel-body {
+  border-top: 1px solid lightgray;
+  padding: 0 0 0 0 !important;
+}

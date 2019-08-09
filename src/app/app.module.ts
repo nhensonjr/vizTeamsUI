@@ -9,6 +9,7 @@ import { SiteHeaderComponent } from './components/site-header/site-header.compon
 import { ContextBarComponent } from './components/context-bar/context-bar.component';
 import { TeamListComponent } from './components/team-list/team-list.component';
 import { TeamDetailComponent } from './components/team-detail/team-detail.component';
+import { CombinedViewComponent } from './components/combined-view/combined-view.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { TeamDetailComponent } from './components/team-detail/team-detail.compon
     SiteHeaderComponent,
     ContextBarComponent,
     TeamListComponent,
-    TeamDetailComponent
+    TeamDetailComponent,
+    CombinedViewComponent
   ],
   imports: [
     BrowserModule,
