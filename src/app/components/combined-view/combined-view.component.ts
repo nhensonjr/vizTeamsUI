@@ -4,23 +4,8 @@ import { Team } from '../../Models/team.model';
 @Component({
   selector: 'app-combined-view',
   template: `
-      <div class="expansion-container">
-          <mat-expansion-panel class="expansion-panel" *ngFor="let team of teams">
-              <mat-expansion-panel-header>
-                  {{team.name}}
-              </mat-expansion-panel-header>
-              <table>
-                  <tr>
-                      <td>Name</td>
-                      <td>Title</td>
-                  </tr>
-                  <tr *ngFor="let member of team.members">
-                      <td>{{member.firstName}} {{member.lastName}}</td>
-                      <td>{{member.title}}</td>
-                  </tr>
-              </table>
-          </mat-expansion-panel>
-      </div>
+    <mat-card class="left-card">LEFT CARD</mat-card>
+    <mat-card class="right-card">RIGHT CARD</mat-card>
   `,
   styleUrls: ['./combined-view.component.scss']
 })

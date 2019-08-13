@@ -14,6 +14,13 @@ app-team-list {
   padding: 16px 0;
 }
 
+app-combined-view {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .mat-expansion-panel-body {
   border-top: 1px solid lightgray;
   padding: 0 0 0 0 !important;

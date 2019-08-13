@@ -1,19 +1,9 @@
-.expansion-container {
-  margin: 32px;
-  max-width: 400px;
+.left-card {
+  height: 100%;
+  width: 35%;
 }
 
-.expansion-panel {
-  border-radius: 0;
-  border-top: 2px solid #ccd7dc;
-}
-
-.member-container {
-  border-bottom: 1px solid lightgray;
-  margin: 8px;
-  padding: 8px;
-}
-
-.mat-expansion-panel-body {
-  padding: 0 0 0 0 !important;
+.right-card {
+  height: 90%;
+  width: 55%;
 }
