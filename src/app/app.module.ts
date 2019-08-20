@@ -11,6 +11,8 @@ import { TeamListComponent } from './components/team-list/team-list.component';
 import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 import { CombinedViewComponent } from './components/combined-view/combined-view.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { HttpClientModule } from '@angular/common/http';
+import { TeamService } from './services/team.service';
 
 @NgModule({
   declarations: [
@@ -19,16 +21,17 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ContextBarComponent,
     TeamListComponent,
     TeamDetailComponent,
-    CombinedViewComponent
+    CombinedViewComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    DragDropModule
+    DragDropModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [TeamService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

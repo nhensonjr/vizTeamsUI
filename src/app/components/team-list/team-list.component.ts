@@ -13,7 +13,7 @@ import { Team } from '../../Models/team.model';
           <mat-card-content class="team-list__content-container">
               <div class="team-list__member-container" *ngFor="let member of team.members">
                   <div class="team-list__photo-container">
-                      <img src="{{member.photoUrl}}" alt="" class="team-list__member-photo">
+                      <img src="{{member.pathToPhoto}}" alt="" class="team-list__member-photo">
                   </div>
                   <div class="team-list__info-container">
                       <div class="team-list__member-name">
@@ -30,52 +30,7 @@ import { Team } from '../../Models/team.model';
   styleUrls: ['./team-list.component.scss']
 })
 export class TeamListComponent implements OnInit {
-  teams: Team[] = [
-    {
-      id: 1,
-      name: 'Shake & Bake',
-      description: 'The best team',
-      members: [
-        {id: 1, firstName: 'Ricky', lastName: 'Bobby', title: 'El Diablo', photoUrl: '/assets/avatar.png'},
-        {id: 2, firstName: 'Cal', lastName: 'Naughton Jr', title: 'Magic Man', photoUrl: '/assets/avatar.png'},
-        {id: 3, firstName: 'Brennan', lastName: 'Huff', title: 'Night Hawk', photoUrl: '/assets/avatar.png'},
-        {id: 4, firstName: 'Dale', lastName: 'Doback', title: 'Dragon', photoUrl: '/assets/avatar.png'},
-      ]
-    },
-    {
-      id: 2,
-      name: 'Prestige Worldwide',
-      description: 'The rest team',
-      members: [
-        {id: 1, firstName: 'Ricky', lastName: 'Bobby', title: 'El Diablo', photoUrl: '/assets/avatar.png'},
-        {id: 2, firstName: 'Cal', lastName: 'Naughton Jr', title: 'Magic Man', photoUrl: '/assets/avatar.png'},
-        {id: 3, firstName: 'Brennan', lastName: 'Huff', title: 'Night Hawk', photoUrl: '/assets/avatar.png'},
-        {id: 4, firstName: 'Dale', lastName: 'Doback', title: 'Dragon', photoUrl: '/assets/avatar.png'},
-      ]
-    },
-    {
-      id: 1,
-      name: 'Shake & Bake',
-      description: 'The best team',
-      members: [
-        {id: 1, firstName: 'Ricky', lastName: 'Bobby', title: 'El Diablo', photoUrl: '/assets/avatar.png'},
-        {id: 2, firstName: 'Cal', lastName: 'Naughton Jr', title: 'Magic Man', photoUrl: '/assets/avatar.png'},
-        {id: 3, firstName: 'Brennan', lastName: 'Huff', title: 'Night Hawk', photoUrl: '/assets/avatar.png'},
-        {id: 4, firstName: 'Dale', lastName: 'Doback', title: 'Dragon', photoUrl: '/assets/avatar.png'},
-      ]
-    },
-    {
-      id: 2,
-      name: 'Prestige Worldwide',
-      description: 'The rest team',
-      members: [
-        {id: 1, firstName: 'Ricky', lastName: 'Bobby', title: 'El Diablo', photoUrl: '/assets/avatar.png'},
-        {id: 2, firstName: 'Cal', lastName: 'Naughton Jr', title: 'Magic Man', photoUrl: '/assets/avatar.png'},
-        {id: 3, firstName: 'Brennan', lastName: 'Huff', title: 'Night Hawk', photoUrl: '/assets/avatar.png'},
-        {id: 4, firstName: 'Dale', lastName: 'Doback', title: 'Dragon', photoUrl: '/assets/avatar.png'},
-      ]
-    },
-  ];
+  teams: Team[] = [];
 
   constructor() {
   }

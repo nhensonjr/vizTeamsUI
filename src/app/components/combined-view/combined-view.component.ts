@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from '../../Models/team.model';
 import { Member } from '../../Models/member.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { TEAMS } from '../../../assets/mock-teams';
+import { TeamService } from '../../services/team.service';
+import { MemberService } from '../../services/member.service';
 
 @Component({
   selector: 'app-combined-view',
@@ -20,8 +21,8 @@ import { TEAMS } from '../../../assets/mock-teams';
                               {{team.name}}
                           </mat-panel-title>
                       </mat-expansion-panel-header>
-                      <div cdkDropList [cdkDropListData]="team.members" (cdkDropListDropped)="drop($event)">
-                          <img cdkDrag class="member-photo" *ngFor="let member of team.members" src="{{member.photoUrl}}"
+                      <div cdkDropList [cdkDropListData]="team.members" (cdkDropListDropped)="drop($event, team.id)">
+                          <img cdkDrag class="member-photo" *ngFor="let member of team.members" src="{{member.pathToPhoto}}"
                                alt="{{member.firstName}} {{member.lastName}}">
                           <img class="member-photo" src="assets/empty.png" alt="">
                       </div>
@@ -40,7 +41,7 @@ import { TEAMS } from '../../../assets/mock-teams';
               <div class="member-list" *ngIf="!selectedMember.id; else memberSelected">
                   <mat-card *ngFor="let member of selectedTeam.members" class="member-container" (click)="selectedMember = member">
                       <div class="member-photo">
-                          <img class="member-photo" src="{{member.photoUrl}}" alt="">
+                          <img class="member-photo" src="{{member.pathToPhoto}}" alt="">
                       </div>
                       <div class="member-info">
                           <div>{{member.firstName}} {{member.lastName}}</div>
@@ -51,7 +52,7 @@ import { TEAMS } from '../../../assets/mock-teams';
               <ng-template #memberSelected style="height: 100%;">
                   <div class="selectedMember-container">
                       <div class="member-photo">
-                          <img class="selectedMember-photo" src="{{selectedMember.photoUrl}}" alt="">
+                          <img class="selectedMember-photo" src="{{selectedMember.pathToPhoto}}" alt="">
                       </div>
                       <div class="selectedMember-info">
                           <div>{{selectedMember.firstName}} {{selectedMember.lastName}}</div>
@@ -68,26 +69,38 @@ export class CombinedViewComponent implements OnInit {
   selectedTeam: Team = new Team();
   selectedMember: Member = new Member();
 
-  teams: Team[] = TEAMS;
+  teams: Team[] = [];
 
-  constructor() {
+  constructor(private teamService: TeamService, private memberService: MemberService) {
   }
 
   ngOnInit() {
+    this.teamService.getAll().subscribe(teams => {
+      console.log('LOG: ', teams);
+      this.teams = teams;
+    });
   }
 
   clearSelectedMember() {
     this.selectedMember = new Member();
   }
 
-  drop(event: CdkDragDrop<Member[]>) {
+  drop(event: CdkDragDrop<Member[]>, teamId: number) {
+
+    const memberToUpdate = event.previousContainer.data[event.previousIndex];
+
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(event.previousContainer.data,
+      transferArrayItem(
+        event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex);
+        event.currentIndex
+      );
     }
+
+    memberToUpdate.team = teamId;
+    this.memberService.updateMember(memberToUpdate).subscribe();
   }
 }
