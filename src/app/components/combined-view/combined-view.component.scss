@@ -1,9 +1,47 @@
 .left-card {
   height: 100%;
   width: 35%;
+  overflow: auto;
+  padding: 16px 0;
 }
 
 .right-card {
   height: 90%;
   width: 55%;
+  overflow: auto;
 }
+
+.member-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.member-container {
+  display: flex;
+}
+
+.member-photo {
+  height: 75px;
+  width: 75px;
+  margin: 8px;
+}
+
+.selectedMember-photo {
+  height: 250px;
+  width: 250px;
+}
+
+.team-container {
+  border-bottom: 1px solid lightgray;
+  box-shadow: 0 0 0 0;
+}
+
+.member-container {
+  margin: 8px;
+}
+
+.selectedMember-container {
+  height: 100%;
+}
+
+

@@ -10,6 +10,7 @@ import { ContextBarComponent } from './components/context-bar/context-bar.compon
 import { TeamListComponent } from './components/team-list/team-list.component';
 import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 import { CombinedViewComponent } from './components/combined-view/combined-view.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CombinedViewComponent } from './components/combined-view/combined-view.
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

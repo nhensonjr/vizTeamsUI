@@ -18,10 +18,10 @@ app-combined-view {
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .mat-expansion-panel-body {
-  border-top: 1px solid lightgray;
   padding: 0 0 0 0 !important;
+  background-color: lightgray;
 }
