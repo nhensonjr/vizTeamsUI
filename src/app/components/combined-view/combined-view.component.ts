@@ -76,7 +76,6 @@ export class CombinedViewComponent implements OnInit {
 
   ngOnInit() {
     this.teamService.getAll().subscribe(teams => {
-      console.log('LOG: ', teams);
       this.teams = teams;
     });
   }
