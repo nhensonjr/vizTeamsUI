@@ -6,10 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { SiteHeaderComponent } from './components/site-header/site-header.component';
-import { ContextBarComponent } from './components/context-bar/context-bar.component';
-import { TeamListComponent } from './components/team-list/team-list.component';
-import { TeamDetailComponent } from './components/team-detail/team-detail.component';
-import { CombinedViewComponent } from './components/combined-view/combined-view.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { TeamService } from './services/team.service';
@@ -18,10 +14,6 @@ import { TeamService } from './services/team.service';
   declarations: [
     AppComponent,
     SiteHeaderComponent,
-    ContextBarComponent,
-    TeamListComponent,
-    TeamDetailComponent,
-    CombinedViewComponent,
   ],
   imports: [
     BrowserModule,

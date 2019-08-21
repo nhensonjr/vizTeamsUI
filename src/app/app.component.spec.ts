@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { By } from '@angular/platform-browser';
 import { SiteHeaderComponent } from './components/site-header/site-header.component';
 import { MaterialModule } from './material.module';
-import { ContextBarComponent } from './components/context-bar/context-bar.component';
 import { TeamListComponent } from './components/team-list/team-list.component';
 import { Router } from '@angular/router';
 import { TeamDetailComponent } from './components/team-detail/team-detail.component';
@@ -27,7 +26,6 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         SiteHeaderComponent,
-        ContextBarComponent,
         TeamListComponent,
         TeamDetailComponent
       ]

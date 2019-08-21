@@ -5,4 +5,11 @@ export class Team {
   name: string;
   description: string;
   members: Member[];
+
+  constructor(team: Team) {
+    this.id = team.id;
+    this.name = team.name;
+    this.description = team.description;
+    this.members = team.members;
+  }
 }

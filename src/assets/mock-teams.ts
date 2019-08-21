@@ -29,11 +29,11 @@ export const TEAMS: Team[] = [
     name: 'Catalog',
     description: '',
     members: [
-      // {id: 0, firstName: 'Zaelin', lastName: 'Swann', title: 'Software Engineer', pathToPhoto: '/assets/avatar.png'},
-      // {id: 0, firstName: 'William', lastName: 'Ralston', title: 'Software Engineer', pathToPhoto: '/assets/avatar.png'},
-      // {id: 0, firstName: 'Lora', lastName: 'Hish', title: 'Quality Engineer', pathToPhoto: '/assets/avatar.png'},
-      // {id: 0, firstName: 'Greg', lastName: 'Trent', title: 'Software Engineer', pathToPhoto: '/assets/avatar.png'},
-      // {id: 0, firstName: 'Mark', lastName: 'Miller', title: 'Software Engineer', pathToPhoto: '/assets/avatar.png'},
+      {team: 0, id: 0, firstName: 'Zaelin', lastName: 'Swann', title: 'Software Engineer', pathToPhoto: '/assets/avatar.png'},
+      {team: 0, id: 0, firstName: 'William', lastName: 'Ralston', title: 'Software Engineer', pathToPhoto: '/assets/avatar.png'},
+      {team: 0, id: 0, firstName: 'Lora', lastName: 'Hish', title: 'Quality Engineer', pathToPhoto: '/assets/avatar.png'},
+      {team: 0, id: 0, firstName: 'Greg', lastName: 'Trent', title: 'Software Engineer', pathToPhoto: '/assets/avatar.png'},
+      {team: 0, id: 0, firstName: 'Mark', lastName: 'Miller', title: 'Software Engineer', pathToPhoto: '/assets/avatar.png'},
     ]
   },
   {
@@ -103,5 +103,11 @@ export const TEAMS: Team[] = [
       {team: 0, id: 0, firstName: 'Senthil', lastName: 'Sundaramoorthy', title: 'Software Engineer', pathToPhoto: '/assets/avatar.png'},
       {team: 0, id: 0, firstName: 'Hiral', lastName: 'Patel', title: 'Quality Engineer', pathToPhoto: '/assets/avatar.png'},
     ]
+  },
+  {
+    id: 7,
+    name: 'EmptyTeam',
+    description: '',
+    members: []
   },
 ];
