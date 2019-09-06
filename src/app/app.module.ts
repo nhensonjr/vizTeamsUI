@@ -21,7 +21,7 @@ import { TeamService } from './services/team.service';
     AppRoutingModule,
     MaterialModule,
     DragDropModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [TeamService],
   bootstrap: [AppComponent]

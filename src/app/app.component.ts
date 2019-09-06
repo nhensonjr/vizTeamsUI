@@ -4,7 +4,7 @@ import { Member } from './Models/member.model';
 import { TeamService } from './services/team.service';
 import { MemberService } from './services/member.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { TEAMS } from '../assets/mock-teams';
+import { MOCKTEAMS } from '../assets/mock-teams';
 import { MatExpansionPanel } from '@angular/material';
 
 @Component({
@@ -36,7 +36,10 @@ import { MatExpansionPanel } from '@angular/material';
                                    (cdkDragStarted)="isDragging = true; previousPanel = panel"
                                    (cdkDragEnded)="isDragging = false"
                                    src="{{member.pathToPhoto}}"
-                                   alt="{{member.firstName}} {{member.lastName}}">
+                                   alt="{{member.firstName}} {{member.lastName}}"
+                                   [matTooltipDisabled]="isDragging"
+                                   matTooltipPosition="above"
+                                   matTooltip="{{member.firstName}} {{member.lastName}}">
                           </div>
                       </mat-expansion-panel>
                   </mat-accordion>
@@ -58,7 +61,8 @@ import { MatExpansionPanel } from '@angular/material';
                                *ngFor="let member of selectedTeam.members"
                                (click)="setSelectedMember(member)">
                               <div class="info-view__photo-container">
-                                  <img class="info-view__photo" src="{{member.pathToPhoto}}" alt="{{member.firstName}} {{member.lastName}}">
+                                  <img class="info-view__photo" src="{{member.pathToPhoto}}"
+                                       alt="{{member.firstName}} {{member.lastName}}">
                               </div>
                               <div class="info-view__info-container">
                                   <div>{{member.firstName}} {{member.lastName}}</div>
@@ -85,7 +89,7 @@ import { MatExpansionPanel } from '@angular/material';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  teams: Team[] = TEAMS;
+  teams: Team[] = MOCKTEAMS;
   selectedTeam: Team;
   selectedMember: Member;
   isDragging = false;
@@ -111,7 +115,6 @@ export class AppComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Member[]>, teamId: number) {
-
     const memberToUpdate = event.previousContainer.data[event.previousIndex];
 
     if (event.previousContainer === event.container) {
