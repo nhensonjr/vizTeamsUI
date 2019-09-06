@@ -21,8 +21,8 @@ import { MatExpansionPanel } from '@angular/material';
               <mat-card-content>
                   <mat-accordion cdkDropListGroup multi="true">
                       <mat-expansion-panel *ngFor="let team of teams" #panel (click)="setSelectedTeam(team)"
-                                           (mouseenter)="shouldOpen(panel)"
-                                           (mouseleave)="shouldClose(panel, previousPanel)">
+                                           (mouseenter)="onMouseEnter(panel)"
+                                           (mouseleave)="onMouseLeave(panel, previousPanel)">
                           <mat-expansion-panel-header>
                               <mat-panel-title class="team-list__team-header">
                                   {{team.name}}
@@ -31,7 +31,7 @@ import { MatExpansionPanel } from '@angular/material';
                           <div class="team-list__member-list-container"
                                cdkDropList [cdkDropListData]="team.members"
                                (cdkDropListDropped)="drop($event, team.id)">
-                              <img class="team-list__member-list-photo" src="assets/empty.png" alt="">
+                              <img class="team-list__member-list-photo" src="../assets/empty.png" alt="">
                               <img class="team-list__member-list-photo" cdkDrag *ngFor="let member of team.members"
                                    (cdkDragStarted)="isDragging = true; previousPanel = panel"
                                    (cdkDragEnded)="isDragging = false"
@@ -90,13 +90,13 @@ export class AppComponent implements OnInit {
   selectedMember: Member;
   isDragging = false;
   previousPanel: MatExpansionPanel;
+  hoveredPanel: MatExpansionPanel;
 
   constructor(private teamService: TeamService, private memberService: MemberService) {
   }
 
   ngOnInit() {
     this.teamService.getAll().subscribe(teams => {
-      console.log('LOG: ', teams);
       this.teams = teams;
     });
   }
@@ -145,13 +145,17 @@ export class AppComponent implements OnInit {
     this.selectedMember = undefined;
   }
 
-  shouldOpen(panel: MatExpansionPanel) {
+  onMouseEnter(panel: MatExpansionPanel) {
+    const waitTime = 750;
+    this.hoveredPanel = panel;
     if (this.isDragging) {
-      panel.open();
+      setTimeout(() => {
+        this.hoveredPanel.open();
+      }, waitTime);
     }
   }
 
-  shouldClose(targetPanel: MatExpansionPanel, previousPanel: MatExpansionPanel) {
+  onMouseLeave(targetPanel: MatExpansionPanel, previousPanel: MatExpansionPanel) {
     if (this.isDragging && targetPanel !== previousPanel) {
       targetPanel.close();
     }
