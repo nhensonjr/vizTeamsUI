@@ -2,16 +2,13 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
 ## Parrit
-We will use `parrit.cfapps.io` for pairing every at the beginning of every class.
+We use `parrit.cfapps.io` for pairing every at the beginning of every class.
 
 Project name: `Viz-Code-Labs`  
 Password: `talladega`
 
 ## Code Repository
 The application's codebase will be hosted on github at `INSERT GITHUB LINK HERE`
-
-## Deployment Environment
-The application will be auto-deployed from github to heroku at `INSERT HEROKU LINK HERE` 
 
 
 ## Development server
