@@ -5,7 +5,9 @@ import { TeamService } from './services/team.service';
 import { MemberService } from './services/member.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MOCKTEAMS } from '../assets/mock-teams';
-import { MatExpansionPanel } from '@angular/material';
+import { MatDialog, MatExpansionPanel } from '@angular/material';
+import { AddDialogComponent } from './components/add-dialog/add-dialog.component';
+
 
 @Component({
   selector: 'app-root',
@@ -30,8 +32,11 @@ import { MatExpansionPanel } from '@angular/material';
                           </mat-expansion-panel-header>
                           <div class="team-list__member-list-container"
                                cdkDropList [cdkDropListData]="team.members"
+                               cdkDropListSortingDisabled
                                (cdkDropListDropped)="drop($event, team.id)">
-                              <img class="team-list__member-list-photo" src="../assets/empty.png" alt="">
+                              <img (click)="openDialog(team)" class="team-list__add-member" src="../assets/add.png" alt=""
+                                   matTooltipPosition="above"
+                                   matTooltip="Add Member">
                               <img class="team-list__member-list-photo" cdkDrag *ngFor="let member of team.members"
                                    (cdkDragStarted)="isDragging = true; previousPanel = panel"
                                    (cdkDragEnded)="isDragging = false"
@@ -96,7 +101,7 @@ export class AppComponent implements OnInit {
   previousPanel: MatExpansionPanel;
   hoveredPanel: MatExpansionPanel;
 
-  constructor(private teamService: TeamService, private memberService: MemberService) {
+  constructor(private teamService: TeamService, private memberService: MemberService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -162,5 +167,17 @@ export class AppComponent implements OnInit {
     if (this.isDragging && targetPanel !== previousPanel) {
       targetPanel.close();
     }
+  }
+
+  openDialog(team: Team): void {
+    const dialogRef = this.dialog.open(AddDialogComponent, {
+      width: '250px',
+      data: {teamName: team.name}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
   }
 }

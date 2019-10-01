@@ -10,6 +10,9 @@ Password: `talladega`
 ## Code Repository
 The application's codebase will be hosted on github at `INSERT GITHUB LINK HERE`
 
+## Setting up heroku node build
+Visit for info: `https://medium.com/@avisek.cool/deploy-angular-7-app-on-heroku-quick-and-easy-way-b739001ac90f`
+
 
 ## Development server
 

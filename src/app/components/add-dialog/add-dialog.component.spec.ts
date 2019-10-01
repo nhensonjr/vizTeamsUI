@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CombinedViewComponent } from './combined-view.component';
+import { AddDialogComponent } from './add-dialog.component';
 
-describe('CombinedViewComponent', () => {
-  let component: CombinedViewComponent;
-  let fixture: ComponentFixture<CombinedViewComponent>;
+describe('AddDialogComponent', () => {
+  let component: AddDialogComponent;
+  let fixture: ComponentFixture<AddDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CombinedViewComponent ]
+      declarations: [ AddDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CombinedViewComponent);
+    fixture = TestBed.createComponent(AddDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

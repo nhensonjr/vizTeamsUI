@@ -31,7 +31,14 @@
   width: 100%;
 }
 
+.team-list__add-member {
+  cursor: pointer;
+  width: 3vw;
+  margin: .5vw
+}
+
 .team-list__member-list-photo {
+  cursor: move;
   width: 3vw;
   margin: .5vw
 }
@@ -102,7 +109,7 @@
 }
 
 .cdk-drag-placeholder {
-  opacity: 0;
+  opacity: 100%;
 }
 
 .cdk-drag-animating {

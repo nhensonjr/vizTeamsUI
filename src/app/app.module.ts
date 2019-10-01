@@ -9,11 +9,14 @@ import { SiteHeaderComponent } from './components/site-header/site-header.compon
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { TeamService } from './services/team.service';
+import { AddDialogComponent } from './components/add-dialog/add-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     SiteHeaderComponent,
+    AddDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,8 +25,10 @@ import { TeamService } from './services/team.service';
     MaterialModule,
     DragDropModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [TeamService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddDialogComponent]
 })
 export class AppModule { }
