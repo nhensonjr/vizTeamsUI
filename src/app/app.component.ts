@@ -31,12 +31,10 @@ import { AddDialogComponent } from './components/add-dialog/add-dialog.component
                               </mat-panel-title>
                           </mat-expansion-panel-header>
                           <div class="team-list__member-list-container"
-                               cdkDropList [cdkDropListData]="team.members"
-                               cdkDropListSortingDisabled
+                               cdkDropList
+                               cdkDropListOrientation="horizontal"
+                               [cdkDropListData]="team.members"
                                (cdkDropListDropped)="drop($event, team.id)">
-                              <img (click)="openDialog(team)" class="team-list__add-member" src="../assets/add.png" alt=""
-                                   matTooltipPosition="above"
-                                   matTooltip="Add Member">
                               <img class="team-list__member-list-photo" cdkDrag *ngFor="let member of team.members"
                                    (cdkDragStarted)="isDragging = true; previousPanel = panel"
                                    (cdkDragEnded)="isDragging = false"
@@ -46,6 +44,11 @@ import { AddDialogComponent } from './components/add-dialog/add-dialog.component
                                    matTooltipPosition="above"
                                    matTooltip="{{member.firstName}} {{member.lastName}}">
                           </div>
+                          <mat-action-row>
+                              <img (click)="openDialog(team)" class="team-list__add-member" src="../assets/add.png" alt=""
+                                   matTooltipPosition="above"
+                                   matTooltip="Add Member">
+                          </mat-action-row>
                       </mat-expansion-panel>
                   </mat-accordion>
               </mat-card-content>

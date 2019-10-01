@@ -53,23 +53,7 @@ export const MOCKTEAMS: Team[] = [
       {
         team: 1, id: 26, firstName: 'Nathan', lastName: 'Waller',
         title: 'Software Engineer', pathToPhoto: 'https://picsum.photos/id/26/200'
-      },
-      {
-        team: 1, id: 27, firstName: 'Norman', lastName: 'Henson',
-        title: 'Software Engineer', pathToPhoto: 'https://picsum.photos/id/27/200'
-      },
-      {
-        team: 1, id: 28, firstName: 'Anupa', lastName: 'Vemula',
-        title: 'Quality Engineer', pathToPhoto: 'https://picsum.photos/id/28/200'
-      },
-      {
-        team: 1, id: 29, firstName: 'Tammy', lastName: 'Sotak',
-        title: 'Quality Engineer', pathToPhoto: 'https://picsum.photos/id/29/200'
-      },
-      {
-        team: 1, id: 30, firstName: 'Lauren', lastName: 'Jones',
-        title: 'Quality Engineer', pathToPhoto: 'https://picsum.photos/id/30/200'
-      },
+      }
     ]
   },
   {
@@ -268,6 +252,29 @@ export const MOCKTEAMS: Team[] = [
   },
   {
     id: 7,
+    name: 'Tam',
+    description: '',
+    members: [
+      {
+        team: 1, id: 27, firstName: 'Norman', lastName: 'Henson',
+        title: 'Software Engineer', pathToPhoto: 'https://picsum.photos/id/27/200'
+      },
+      {
+        team: 1, id: 28, firstName: 'Anupa', lastName: 'Vemula',
+        title: 'Quality Engineer', pathToPhoto: 'https://picsum.photos/id/28/200'
+      },
+      {
+        team: 1, id: 29, firstName: 'Tammy', lastName: 'Sotak',
+        title: 'Quality Engineer', pathToPhoto: 'https://picsum.photos/id/29/200'
+      },
+      {
+        team: 1, id: 30, firstName: 'Lauren', lastName: 'Jones',
+        title: 'Quality Engineer', pathToPhoto: 'https://picsum.photos/id/30/200'
+      },
+    ]
+  },
+  {
+    id: 8,
     name: 'EmptyTeam',
     description: '',
     members: []
