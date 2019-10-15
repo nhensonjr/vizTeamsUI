@@ -1,0 +1,87 @@
+//  Team list Container //
+
+.team-list__container {
+  overflow-y: auto;
+  padding: 0;
+  width: 50vw;
+  height: calc(100vh - 64px - 8vh);
+}
+
+.team-list__section-header {
+  color: rgba(69, 90, 100, .87);
+  font-size: x-large;
+}
+
+.team-list__team-header {
+  color: rgba(69, 90, 100, .87);
+  font-size: large;
+}
+
+.team-list__member-list-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.team-list__add-member {
+  cursor: pointer;
+  width: 2vw;
+  margin: 1vh;
+}
+
+.team-list__member-list-photo {
+  cursor: move;
+  width: 3vw;
+  margin: .5vw
+}
+
+.team-list__no-members-prompt {
+  color: rgba(69, 90, 100, .87);
+  font-size: large;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-list__selected-team {
+  background-color: #01adab !important;
+  color: white !important;
+}
+
+.mat-action-row {
+  align-items: center;
+}
+
+.team-list__member-counter {
+  margin: 8px;
+  color: rgba(69, 90, 100, .87);
+}
+
+.team-list__error-prompt {
+  margin: 8px;
+  color: red;
+}
+
+//  Animation Code  //
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.5;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.team-list__member-list-container.cdk-drop-list-dragging .team-list__member-list-photo:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

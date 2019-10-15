@@ -11,12 +11,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { TeamService } from './services/team.service';
 import { AddDialogComponent } from './components/add-dialog/add-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TeamListComponent } from './components/team-list/team-list.component';
+import { InfoViewComponent } from './components/info-view/info-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SiteHeaderComponent,
     AddDialogComponent,
+    TeamListComponent,
+    InfoViewComponent,
   ],
   imports: [
     BrowserModule,
