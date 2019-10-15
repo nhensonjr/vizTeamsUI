@@ -4,7 +4,6 @@ import { Member } from './Models/member.model';
 import { TeamService } from './services/team.service';
 import { MemberService } from './services/member.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { MOCKTEAMS } from '../assets/mock-teams';
 import { MatDialog, MatExpansionPanel } from '@angular/material';
 import { AddDialogComponent } from './components/add-dialog/add-dialog.component';
 
@@ -45,6 +44,10 @@ import { AddDialogComponent } from './components/add-dialog/add-dialog.component
                                    matTooltip="{{member.firstName}} {{member.lastName}}">
                           </div>
                           <mat-action-row>
+                              <span *ngIf="showErrorPrompt(team.id, teamsWithErrors)" class="team-list__error-prompt">
+                                  Team size limited to 12 members
+                              </span>
+                              <span class="team-list__member-counter">{{team.members.length}}/12</span>
                               <img (click)="openDialog(team)" class="team-list__add-member" src="../assets/add.png" alt=""
                                    matTooltipPosition="above"
                                    matTooltip="Add Member">
@@ -97,14 +100,24 @@ import { AddDialogComponent } from './components/add-dialog/add-dialog.component
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  teams: Team[] = MOCKTEAMS;
+  // teams: Team[] = MOCKTEAMS;
+  teams: Team[] = [];
   selectedTeam: Team;
   selectedMember: Member;
   isDragging = false;
   previousPanel: MatExpansionPanel;
   hoveredPanel: MatExpansionPanel;
+  teamsWithErrors: number[] = [];
 
   constructor(private teamService: TeamService, private memberService: MemberService, public dialog: MatDialog) {
+  }
+
+  get showTeamView(): boolean {
+    return this.selectedTeam !== undefined && this.selectedMember === undefined;
+  }
+
+  get showMemberView(): boolean {
+    return this.selectedTeam !== undefined && this.selectedMember !== undefined;
   }
 
   ngOnInit() {
@@ -128,12 +141,19 @@ export class AppComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      if (event.container.data.length < 12) {
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex
+        );
+      } else {
+        this.teamsWithErrors.push(teamId);
+        setTimeout(() => {
+          this.clearErrorPrompt();
+        }, 3000);
+      }
     }
 
     memberToUpdate.team = teamId;
@@ -142,14 +162,6 @@ export class AppComponent implements OnInit {
 
   teamSelected(): boolean {
     return this.selectedTeam !== undefined;
-  }
-
-  get showTeamView(): boolean {
-    return this.selectedTeam !== undefined && this.selectedMember === undefined;
-  }
-
-  get showMemberView(): boolean {
-    return this.selectedTeam !== undefined && this.selectedMember !== undefined;
   }
 
   clearSelectedMember() {
@@ -174,13 +186,23 @@ export class AppComponent implements OnInit {
 
   openDialog(team: Team): void {
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      width: '250px',
-      data: {teamName: team.name}
+      height: '40vh',
+      width: '50vw',
+      data: {teamName: team.name, allTeams: this.teams}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
+      this.teamService.getAll().subscribe(teams => {
+        this.teams = teams;
+      });
     });
+  }
+
+  showErrorPrompt(teamId: number, teamsWithErrors: number[]): boolean {
+    return teamsWithErrors.includes(teamId);
+  }
+
+  clearErrorPrompt(): void {
+    this.teamsWithErrors = [];
   }
 }

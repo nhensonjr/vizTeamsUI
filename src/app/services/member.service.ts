@@ -20,4 +20,8 @@ export class MemberService {
   updateMember(member: Member): Observable<any> {
     return this.http.put(this.baseURL + member.id, member);
   }
+
+  createMember(member: Member): Observable<any> {
+    return this.http.post(this.baseURL, member);
+  }
 }

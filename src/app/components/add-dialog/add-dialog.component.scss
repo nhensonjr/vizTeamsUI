@@ -1,8 +1,14 @@
 .example-container {
   display: flex;
   flex-direction: column;
+  padding: 32px;
 }
 
 .example-container > * {
   width: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
 }

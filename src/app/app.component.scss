@@ -27,7 +27,6 @@
 
 .team-list__member-list-container {
   display: flex;
-  flex-wrap: wrap;
   width: 100%;
 }
 
@@ -47,6 +46,21 @@
   background-color: #01adab !important;
   color: white !important;
 }
+
+.mat-action-row {
+  align-items: center;
+}
+
+.team-list__member-counter {
+  margin: 8px;
+  color: rgba(69, 90, 100, .87);
+}
+
+.team-list__error-prompt {
+  margin: 8px;
+  color: red;
+}
+
 //  Info View Container //
 
 .info-view__container {
