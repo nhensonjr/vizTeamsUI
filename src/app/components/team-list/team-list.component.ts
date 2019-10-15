@@ -33,6 +33,9 @@ import { StateService } from '../../services/state.service';
                            cdkDropListOrientation="horizontal"
                            [cdkDropListData]="team.members"
                            (cdkDropListDropped)="drop($event, team.id)">
+                          <div *ngIf="team.members.length === 0 && !isDragging" class="team-list__no-members-prompt">
+                              <span>No members on this team.</span>
+                          </div>
                           <img class="team-list__member-list-photo" cdkDrag *ngFor="let member of team.members"
                                (cdkDragStarted)="isDragging = true; previousPanel = panel"
                                (cdkDragEnded)="isDragging = false"
