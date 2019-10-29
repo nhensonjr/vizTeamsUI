@@ -67,28 +67,33 @@ import { MemberHistory } from '../../Models/member-history.model';
               </mat-card-content>
               <mat-card-actions class="info-view__card-actions">
                   <div *ngIf="showTeamView">
-                      <button mat-button
-                              matTooltipPosition="above"
-                              matTooltip="Edit {{selectedTeam.name}}">
-                          <mat-icon>edit</mat-icon>
-                      </button>
-                      <button mat-button
-                              matTooltipPosition="above"
-                              matTooltip="Archive {{selectedTeam.name}}">
-                          <mat-icon>archive</mat-icon>
-                      </button>
+                      <span class="info-view__action-buttons"
+                            matTooltipPosition="above"
+                            matTooltip="{{selectedTeam.name}} History">
+                          <mat-icon class="info-view__icon">history</mat-icon>
+                      </span>
+                      <span class="info-view__action-buttons"
+                            matTooltipPosition="above"
+                            matTooltip="Edit {{selectedTeam.name}}">
+                          <mat-icon class="info-view__icon">edit</mat-icon>
+                      </span>
+                      <span class="info-view__action-buttons"
+                            matTooltipPosition="above"
+                            matTooltip="Archive {{selectedTeam.name}}">
+                          <mat-icon class="info-view__icon">archive</mat-icon>
+                      </span>
                   </div>
                   <div *ngIf="showMemberView">
-                      <button mat-button
-                              matTooltipPosition="above"
-                              matTooltip="Edit {{selectedMember.firstName}}">
-                          <mat-icon>edit</mat-icon>
-                      </button>
-                      <button mat-button
-                              matTooltipPosition="above"
-                              matTooltip="Archive {{selectedMember.firstName}}">
-                          <mat-icon>archive</mat-icon>
-                      </button>
+                      <span class="info-view__action-buttons"
+                            matTooltipPosition="above"
+                            matTooltip="Edit {{selectedMember.firstName}}">
+                          <mat-icon class="info-view__icon">edit</mat-icon>
+                      </span>
+                      <span class="info-view__action-buttons"
+                            matTooltipPosition="above"
+                            matTooltip="Archive {{selectedMember.firstName}}">
+                          <mat-icon class="info-view__icon">archive</mat-icon>
+                      </span>
                   </div>
               </mat-card-actions>
           </div>

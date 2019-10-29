@@ -1,10 +1,17 @@
 //  Team list Container //
 
 .team-list__container {
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   padding: 0;
   width: 50vw;
   height: calc(100vh - 64px - 8vh);
+}
+
+.team-list__card-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .team-list__section-header {
@@ -17,16 +24,25 @@
   font-size: large;
 }
 
+.team-list__card-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
 .team-list__member-list-container {
   display: flex;
   width: 100%;
   align-items: center;
 }
 
-.team-list__add-member {
+.team-list__action-buttons {
+  margin: 0 16px;
+}
+
+.team-list__icon {
+  margin: 8px;
   cursor: pointer;
-  width: 2vw;
-  margin: 1vh;
+  color: rgba(69, 90, 100, .87);
 }
 
 .team-list__member-list-photo {
@@ -52,6 +68,7 @@
 
 .mat-action-row {
   align-items: center;
+  padding-right: 16px;
 }
 
 .team-list__member-counter {
@@ -62,6 +79,19 @@
 .team-list__error-prompt {
   margin: 8px;
   color: red;
+}
+
+.team-list__acton-row {
+  padding: 0 16px;
+}
+
+.team-list__card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 8px 24px;
+  border-top: solid 1px lightgray;
+  color: rgba(69, 90, 100, .87);
 }
 
 //  Animation Code  //

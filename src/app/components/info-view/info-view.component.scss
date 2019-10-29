@@ -102,9 +102,19 @@
 }
 
 .info-view__card-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin: 0;
-  border-top: solid 1px lightgray;
+   display: flex;
+   justify-content: flex-end;
+   margin: 0;
+   border-top: solid 1px lightgray;
+   color: rgba(69, 90, 100, .87);
+ }
+
+.info-view__action-buttons {
+  margin: 0 16px;
+}
+
+.info-view__icon {
+  margin: 8px;
+  cursor: pointer;
   color: rgba(69, 90, 100, .87);
 }
