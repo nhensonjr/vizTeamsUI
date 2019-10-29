@@ -2,8 +2,13 @@
 
 .info-view__container {
   overflow-y: auto;
-  width: 40vw;
-  height: calc(90vh - 64px - 8vh)
+  width: 45vw;
+  height: calc(90vh - 64px - 8vh);
+  padding: 0;
+}
+
+.info-view__card-header {
+  border-bottom: solid 1px lightgray;
 }
 
 .info-view__section-header {
@@ -11,12 +16,26 @@
   font-size: x-large;
 }
 
-.info-view__member-list-container {
+.info-view__card-content {
+  height: 100%;
+  overflow-y: auto;
+  margin: 0 !important;
+  padding: 8px;
+}
+
+.info-view__team-view-container {
   display: flex;
   flex-wrap: wrap;
 }
 
-.info-view__member-container {
+.info-view__member-view-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-view__team-view-member-container {
   display: flex;
   width: calc(50% - 2vh);
   margin: 1vh;
@@ -24,8 +43,21 @@
   color: rgba(69, 90, 100, .87);
 }
 
-.info-view__photo-container {
+.info-view__member-view-member-container {
+  display: flex;
+  width: calc(100% - 2vh);
+  margin: 1vh;
+  font-size: 2vmin;
+  color: rgba(69, 90, 100, .87);
+}
+
+.info-view__team-view-photo-container {
   width: 33%;
+}
+
+.info-view__member-view-photo-container {
+  width: 25%;
+  margin-right: 1vh;
 }
 
 .info-view__photo {
@@ -33,11 +65,26 @@
   height: auto;
 }
 
-.info-view__info-container {
+.info-view__team-view-info-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   margin: 1vh;
+}
+
+.info-view__member-view-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 1vh;
+  font-size: x-large;
+}
+
+.info-view__team-selected {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .info-view__no-selections {
@@ -47,4 +94,17 @@
   align-items: center;
   color: rgba(69, 90, 100, .87);
   font-size: x-large;
+}
+
+.info-view__member-history {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.info-view__card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  border-top: solid 1px lightgray;
+  color: rgba(69, 90, 100, .87);
 }

@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from '../../Models/team.model';
 import { Member } from '../../Models/member.model';
 import { StateService } from '../../services/state.service';
+import { MemberHistory } from '../../Models/member-history.model';
 
 @Component({
   selector: 'app-info-view',
   template: `
       <mat-card class="info-view__container">
-          <div style="height: 100%" *ngIf="teamSelected(); else noSelections">
-              <mat-card-header>
+          <div class="info-view__team-selected" style="height: 100%" *ngIf="teamSelected(); else noSelections">
+              <mat-card-header class="info-view__card-header">
                   <mat-card-title class="info-view__section-header">
                       <span (click)="clearSelectedMember()">{{selectedTeam?.name}}</span>
                       <span *ngIf="showMemberView">
@@ -16,28 +17,80 @@ import { StateService } from '../../services/state.service';
                           </span>
                   </mat-card-title>
               </mat-card-header>
-              <mat-card-content>
-                  <div class="info-view__member-list-container" *ngIf="showTeamView">
-                      <div class="info-view__member-container"
+              <mat-card-content class="info-view__card-content">
+                  <div class="info-view__team-view-container" *ngIf="showTeamView">
+                      <div class="info-view__team-view-member-container"
                            *ngFor="let member of selectedTeam.members"
                            (click)="setSelectedMember(member)">
-                          <div class="info-view__photo-container">
+                          <div class="info-view__team-view-photo-container">
                               <img class="info-view__photo" src="{{member.pathToPhoto}}"
                                    alt="{{member.firstName}} {{member.lastName}}">
                           </div>
-                          <div class="info-view__info-container">
+                          <div class="info-view__team-view-info-container">
                               <div>{{member.firstName}} {{member.lastName}}</div>
                               <div>{{member.title}}</div>
                           </div>
                       </div>
                   </div>
-                  <!--// TODO: Actually build member info page and remove inline styles-->
-                  <div style="display: flex; justify-content: center; align-items: center" *ngIf="showMemberView">
-                      <div style="margin-top: 20vh; color: rgba(69, 90, 100, .87); font-size: x-large">
-                          Member info/edit page goes here.
+                  <div class="info-view__member-view-container" *ngIf="showMemberView">
+                      <div class="info-view__member-view-member-container">
+                          <div class="info-view__member-view-photo-container">
+                              <img class="info-view__photo" src="{{selectedMember.pathToPhoto}}"
+                                   alt="{{selectedMember.firstName}} {{selectedMember.lastName}}">
+                          </div>
+                          <div class="info-view__member-view-info-container">
+                              <div>{{selectedMember.firstName}} {{selectedMember.lastName}}</div>
+                              <div>{{selectedMember.title}}</div>
+                              <div>{{createEmailAddress(selectedMember)}}@vizientinc.com</div>
+                          </div>
                       </div>
+                      <table mat-table [dataSource]="memberHistory" class="info-view__member-history">
+                          <ng-container matColumnDef="teamId">
+                              <th mat-header-cell *matHeaderCellDef> Team Name</th>
+                              <td mat-cell *matCellDef="let entry"> {{entry.teamId}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="startedOnTeam">
+                              <th mat-header-cell *matHeaderCellDef> Start Date</th>
+                              <td mat-cell *matCellDef="let entry"> {{entry.startedOnTeam}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="leftTeam">
+                              <th mat-header-cell *matHeaderCellDef> End Date</th>
+                              <td mat-cell *matCellDef="let entry"> {{entry.leftTeam}} </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      </table>
                   </div>
               </mat-card-content>
+              <mat-card-actions class="info-view__card-actions">
+                  <div *ngIf="showTeamView">
+                      <button mat-button
+                              matTooltipPosition="above"
+                              matTooltip="Edit {{selectedTeam.name}}">
+                          <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-button
+                              matTooltipPosition="above"
+                              matTooltip="Archive {{selectedTeam.name}}">
+                          <mat-icon>archive</mat-icon>
+                      </button>
+                  </div>
+                  <div *ngIf="showMemberView">
+                      <button mat-button
+                              matTooltipPosition="above"
+                              matTooltip="Edit {{selectedMember.firstName}}">
+                          <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-button
+                              matTooltipPosition="above"
+                              matTooltip="Archive {{selectedMember.firstName}}">
+                          <mat-icon>archive</mat-icon>
+                      </button>
+                  </div>
+              </mat-card-actions>
           </div>
           <ng-template #noSelections>
               <div class="info-view__no-selections">
@@ -52,6 +105,15 @@ export class InfoViewComponent implements OnInit {
 
   selectedTeam: Team;
   selectedMember: Member;
+  displayedColumns: string[] = ['teamId', 'startedOnTeam', 'leftTeam'];
+  memberHistory: MemberHistory[] = [
+    {teamId: 'P2P', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
+    {teamId: 'Cornerstone', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
+    {teamId: 'Data Crispr', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
+    {teamId: 'Tam', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
+    {teamId: 'SSO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
+    {teamId: 'CLO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
+  ];
 
   constructor(private stateService: StateService) {
   }
@@ -74,7 +136,7 @@ export class InfoViewComponent implements OnInit {
   }
 
   teamSelected(): boolean {
-    return this.stateService.selectedTeam !== undefined;
+    return this.selectedTeam !== undefined;
   }
 
   clearSelectedMember(): void {
@@ -83,5 +145,11 @@ export class InfoViewComponent implements OnInit {
 
   setSelectedMember(member: Member): void {
     this.stateService.selectedMember.next(member);
+  }
+
+  createEmailAddress(member: Member): string {
+    const firstName = member.firstName.split('');
+    const email = (firstName[0] + member.lastName).toLowerCase();
+    return email;
   }
 }

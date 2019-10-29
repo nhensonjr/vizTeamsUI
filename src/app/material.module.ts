@@ -5,6 +5,7 @@ import {
   MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule,
   MatSelectModule,
   MatTableModule,
@@ -24,6 +25,7 @@ import {
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatIconModule,
   ],
   exports: [
     MatButtonModule,
@@ -36,6 +38,7 @@ import {
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatIconModule,
   ]
 })
 export class MaterialModule {
