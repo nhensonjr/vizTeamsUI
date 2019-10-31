@@ -7,6 +7,8 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
   MatSelectModule,
   MatTableModule,
   MatToolbarModule,
@@ -26,6 +28,8 @@ import {
     MatSelectModule,
     MatInputModule,
     MatIconModule,
+    MatProgressBarModule,
+    MatPaginatorModule
   ],
   exports: [
     MatButtonModule,
@@ -39,6 +43,8 @@ import {
     MatSelectModule,
     MatInputModule,
     MatIconModule,
+    MatProgressBarModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule {

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatPaginator, PageEvent } from '@angular/material';
 import { MemberService } from '../../services/member.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Member } from '../../Models/member.model';
@@ -8,11 +8,19 @@ import { PhotoService } from '../../services/photo.service';
 @Component({
   selector: 'app-add-dialog',
   template: `
-          <form class="example-container" [formGroup]="memberForm">
-              <div>
-                  <span *ngFor="let url of photoUrls" ><img src="{{url}}" alt=""></span>
-              </div>
+      <form class="example-container" [formGroup]="memberForm">
+          <div class="add-dialog__image-list">
+              <span class="add-dialog__image-container" *ngFor="let photo of photoUrls.slice(firstImage, lastImage)">
+                  <img class="add-dialog__image" src="{{photo.url}}" alt="">
+              </span>
+          </div>
+          <mat-paginator #matPaginator
+                         [length]="photoUrls.length"
+                         [pageSize]="5"
+                         (page)="setPagedPhotos($event, matPaginator)">
+          </mat-paginator>
 
+          <div class="add-dialog__info-container">
               <mat-form-field>
                   <input matInput placeholder="First Name" formControlName="firstName">
               </mat-form-field>
@@ -20,7 +28,9 @@ import { PhotoService } from '../../services/photo.service';
               <mat-form-field>
                   <input matInput placeholder="Last Name" formControlName="lastName">
               </mat-form-field>
+          </div>
 
+          <div class="add-dialog__info-container">
               <mat-form-field>
                   <mat-select placeholder="Title" formControlName="title">
                       <mat-option value="Software Engineer">Software Engineer</mat-option>
@@ -33,17 +43,22 @@ import { PhotoService } from '../../services/photo.service';
                       <mat-option *ngFor="let team of data.allTeams" value="{{team.id}}">{{team.name}}</mat-option>
                   </mat-select>
               </mat-form-field>
-              <div class="buttons">
-                  <button mat-button (click)="onCancel()">Cancel</button>
-                  <button mat-button (click)="onSubmit()">Submit</button>
-              </div>
-          </form>
+          </div>
+
+          <div class="buttons">
+              <button mat-button (click)="onCancel()">Cancel</button>
+              <button mat-button (click)="onSubmit()">Submit</button>
+          </div>
+      </form>
   `,
   styleUrls: ['./add-dialog.component.scss']
 })
 export class AddDialogComponent implements OnInit {
   newMember: Member = new Member();
-  photoUrls: string[] = [];
+  progressBar = 0;
+  firstImage = 0;
+  lastImage = 5;
+  photoUrls: Picture[] = [];
 
   memberForm = new FormGroup({
     pathToPhoto: new FormControl('https://picsum.photos/200'),
@@ -63,6 +78,13 @@ export class AddDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.memberForm.get('team').setValue(this.data.teamName);
+    this.photoService.getPhotos().subscribe((imageList: Picture[]) => {
+      imageList.forEach((image, index) => {
+        // TODO: Decide if we need loading bar
+        this.progressBar = ((index + 1) / (imageList.length) * 100);
+        this.photoUrls.push(new Picture(image.id));
+      });
+    });
   }
 
   onSubmit(): void {
@@ -79,5 +101,22 @@ export class AddDialogComponent implements OnInit {
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+  setPagedPhotos(event: PageEvent, matPaginator: MatPaginator) {
+    const pageIndex = matPaginator.pageIndex * matPaginator.pageSize;
+    this.firstImage = pageIndex;
+    this.lastImage = 5 + pageIndex;
+  }
+}
+
+// TODO: Create real model file
+export class Picture {
+  id: number;
+  url: string;
+
+  constructor(id: number) {
+    this.id = id;
+    this.url = 'https://picsum.photos/id/' + id + '/200/200';
   }
 }

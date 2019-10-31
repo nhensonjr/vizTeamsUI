@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PhotoService {
-
-  url = 'https://picsum.photos/v2/list';
+  // TODO: Make this more flexible
+  baseUrl = 'https://picsum.photos/v2/list?page=2&limit=100';
 
   constructor(private http: HttpClient) {
   }
 
   getPhotos(): Observable<any> {
-    return this.http.get(this.url);
+    return this.http.get(this.baseUrl);
   }
 }

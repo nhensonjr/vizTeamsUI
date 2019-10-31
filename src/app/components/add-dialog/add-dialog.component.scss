@@ -12,3 +12,30 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.add-dialog__image-list {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  height: 120px;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-dialog__image-container {
+  margin: 8px;
+}
+
+.add-dialog__image {
+  height: 100px;
+  width: 100px;
+}
+
+.add-dialog__info-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+mat-form-field {
+  width: 25%;
+}
