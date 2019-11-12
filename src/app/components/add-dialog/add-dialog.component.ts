@@ -2,68 +2,92 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatPaginator, PageEvent } from '@angular/material';
 import { MemberService } from '../../services/member.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Member } from '../../Models/member.model';
+import { Member } from '../../models/member.model';
 import { PhotoService } from '../../services/photo.service';
+import { AddMemberDialogData } from '../../interfaces/add-member-dialog-data.interface';
+import { Team } from '../../models/team.model';
+import { TeamService } from '../../services/team.service';
 
 @Component({
   selector: 'app-add-dialog',
   template: `
-      <form class="example-container" [formGroup]="memberForm">
-          <div class="add-dialog__image-list">
+      <div *ngIf="data.teamName; else teamDialog">
+          <form class="example-container" [formGroup]="memberForm">
+              <div class="add-dialog__image-list">
               <span class="add-dialog__image-container" *ngFor="let pic of pictureURLs.slice(firstImage, lastImage)">
                   <img [ngClass]="pic === selectedPic ? 'add-dialog__selected-image' : 'add-dialog__image'"
                        (click)="setSelectedPic(pic)" src="{{pic.url}}" alt="">
               </span>
-          </div>
-          <mat-paginator #matPaginator
-                         [length]="pictureURLs.length"
-                         [pageSize]="5"
-                         (page)="setPagedPhotos($event, matPaginator)">
-          </mat-paginator>
+              </div>
+              <mat-paginator #matPaginator
+                             [length]="pictureURLs.length"
+                             [pageSize]="5"
+                             (page)="setPagedPhotos($event, matPaginator)">
+              </mat-paginator>
 
-          <div class="add-dialog__info-container">
+              <div class="add-dialog__info-container">
+                  <mat-form-field>
+                      <input matInput placeholder="First Name" formControlName="firstName">
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <input matInput placeholder="Last Name" formControlName="lastName">
+                  </mat-form-field>
+              </div>
+
+              <div class="add-dialog__info-container">
+                  <mat-form-field>
+                      <mat-select placeholder="Title" formControlName="title">
+                          <mat-option value="Software Engineer">Software Engineer</mat-option>
+                          <mat-option value="Quality Engineer">Quality Engineer</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <mat-select placeholder="Team" formControlName="team">
+                          <mat-option *ngFor="let team of data.teams" value="{{team.id}}">{{team.name}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+
+              <div class="buttons">
+                  <button mat-button (click)="onCancel()">Cancel</button>
+                  <button mat-button (click)="onMemberSubmit(this.memberForm)">Submit</button>
+              </div>
+          </form>
+      </div>
+      <ng-template #teamDialog>
+          <form class="example-container" [formGroup]="teamForm">
               <mat-form-field>
-                  <input matInput placeholder="First Name" formControlName="firstName">
+                  <input matInput placeholder="Team Name" formControlName="name">
               </mat-form-field>
 
               <mat-form-field>
-                  <input matInput placeholder="Last Name" formControlName="lastName">
-              </mat-form-field>
-          </div>
-
-          <div class="add-dialog__info-container">
-              <mat-form-field>
-                  <mat-select placeholder="Title" formControlName="title">
-                      <mat-option value="Software Engineer">Software Engineer</mat-option>
-                      <mat-option value="Quality Engineer">Quality Engineer</mat-option>
-                  </mat-select>
+                  <textarea matInput placeholder="Team Description" formControlName="description"></textarea>
               </mat-form-field>
 
-              <mat-form-field>
-                  <mat-select placeholder="Team" formControlName="team">
-                      <mat-option *ngFor="let team of data.allTeams" value="{{team.id}}">{{team.name}}</mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </div>
-
-          <div class="buttons">
-              <button mat-button (click)="onCancel()">Cancel</button>
-              <button mat-button (click)="onSubmit()">Submit</button>
-          </div>
-      </form>
+              <div class="buttons">
+                  <button mat-button (click)="onCancel()">Cancel</button>
+                  <button mat-button (click)="onTeamSubmit(this.teamForm)">Submit</button>
+              </div>
+          </form>
+      </ng-template>
   `,
   styleUrls: ['./add-dialog.component.scss']
 })
 export class AddDialogComponent implements OnInit {
-  newMember: Member = new Member();
   selectedPic: Picture;
-  progressBar = 0;
   firstImage = 0;
   lastImage = 5;
   pictureURLs: Picture[] = [];
 
+  teamForm = new FormGroup({
+    name: new FormControl(''),
+    description: new FormControl('')
+  });
+
   memberForm = new FormGroup({
-    pathToPhoto: new FormControl(),
+    pathToPhoto: new FormControl(''),
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     title: new FormControl(''),
@@ -72,9 +96,10 @@ export class AddDialogComponent implements OnInit {
 
   constructor(
     private memberService: MemberService,
+    private teamService: TeamService,
     private photoService: PhotoService,
     public dialogRef: MatDialogRef<AddDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: AddMemberDialogData
   ) {
   }
 
@@ -87,15 +112,26 @@ export class AddDialogComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    const newMember = new Member();
-    newMember.pathToPhoto = this.memberForm.get('pathToPhoto').value;
-    newMember.firstName = this.memberForm.get('firstName').value;
-    newMember.lastName = this.memberForm.get('lastName').value;
-    newMember.title = this.memberForm.get('title').value;
-    newMember.team = this.memberForm.get('team').value;
+  onMemberSubmit(form: FormGroup): void {
+    const newMember = new Member(
+      form.get('team').value,
+      form.get('firstName').value,
+      form.get('lastName').value,
+      form.get('title').value,
+      form.get('pathToPhoto').value
+    );
 
     this.memberService.createMember(newMember).subscribe();
+    this.dialogRef.close();
+  }
+
+  onTeamSubmit(form: FormGroup): void {
+    const newTeam = new Team(
+      form.get('name').value,
+      form.get('description').value
+    );
+
+    this.teamService.createTeam(newTeam).subscribe();
     this.dialogRef.close();
   }
 

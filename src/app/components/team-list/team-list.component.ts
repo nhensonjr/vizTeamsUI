@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Team } from '../../Models/team.model';
+import { Team } from '../../models/team.model';
 import { MatDialog, MatExpansionPanel } from '@angular/material';
-import { Member } from '../../Models/member.model';
+import { Member } from '../../models/member.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { MOCKTEAMS } from '../../../assets/mock-teams';
 import { AddDialogComponent } from '../add-dialog/add-dialog.component';
 import { TeamService } from '../../services/team.service';
 import { MemberService } from '../../services/member.service';
 import { StateService } from '../../services/state.service';
+import { MOCKTEAMS } from '../../../assets/mock-teams';
 
 @Component({
   selector: 'app-team-list',
@@ -51,7 +51,7 @@ import { StateService } from '../../services/state.service';
                                   Team size limited to 12 members
                               </span>
                               <span class="team-list__member-counter">{{team.members.length}}/12</span>
-                              <span (click)="openDialog(team)"
+                              <span (click)="openAddMemberDialog(team)"
                                     class="team-list__add-member"
                                     matTooltipPosition="above"
                                     matTooltip="Add Member">
@@ -67,7 +67,8 @@ import { StateService } from '../../services/state.service';
                         matTooltip="Restore From Archive">
                       <mat-icon class="team-list__icon">settings_backup_restore</mat-icon>
                   </span>
-                  <span class="team-list__action-buttons"
+                  <span (click)="openAddTeamDialog()"
+                        class="team-list__action-buttons"
                         matTooltipPosition="above"
                         matTooltip="Add Team">
                       <mat-icon class="team-list__icon">add_box</mat-icon>
@@ -163,15 +164,27 @@ export class TeamListComponent implements OnInit {
     this.teamsWithErrors = [];
   }
 
-  openDialog(team: Team): void {
+  openAddMemberDialog(team: Team): void {
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      data: {teamName: team.name, allTeams: this.teams}
+      data: {teamName: team.name, teams: this.teams}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      // this.teamService.getAll().subscribe(teams => {
-      //   this.teams = teams;
-      // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   this.teamService.getAll().subscribe(teams => {
+    //     this.teams = teams;
+    //   });
+    // });
+  }
+
+  openAddTeamDialog(): void {
+    const dialogRef = this.dialog.open(AddDialogComponent, {
+      data: {}
     });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   this.teamService.getAll().subscribe(teams => {
+    //     this.teams = teams;
+    //   });
+    // });
   }
 }

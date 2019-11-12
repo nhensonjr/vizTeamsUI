@@ -33,6 +33,8 @@ import { InfoViewComponent } from './components/info-view/info-view.component';
   ],
   providers: [TeamService],
   bootstrap: [AppComponent],
-  entryComponents: [AddDialogComponent]
+  entryComponents: [
+    AddDialogComponent
+  ]
 })
 export class AppModule { }

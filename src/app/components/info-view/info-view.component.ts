@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Team } from '../../Models/team.model';
-import { Member } from '../../Models/member.model';
+import { Team } from '../../models/team.model';
+import { Member } from '../../models/member.model';
 import { StateService } from '../../services/state.service';
-import { MemberHistory } from '../../Models/member-history.model';
+import { MemberHistory } from '../../models/member-history.model';
 
 @Component({
   selector: 'app-info-view',
