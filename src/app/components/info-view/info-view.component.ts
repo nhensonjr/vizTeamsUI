@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from '../../models/team.model';
 import { Member } from '../../models/member.model';
+import { StateService } from '../../services/state.service';
+import { MemberHistory } from '../../Models/member-history.model';
+import { MatDialog } from '@angular/material';
+import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { MemberHistory } from '../../models/member-history.model';
 import { StateService } from '../../services/state/state.service';
 
@@ -86,7 +90,8 @@ import { StateService } from '../../services/state/state.service';
                   <div *ngIf="showMemberView">
                       <span class="info-view__action-buttons"
                             matTooltipPosition="above"
-                            matTooltip="Edit {{selectedMember.firstName}}">
+                            matTooltip="Edit {{selectedMember.firstName}}"
+                      (click)="openDialog(selectedMember)">
                           <mat-icon class="info-view__icon">edit</mat-icon>
                       </span>
                       <span class="info-view__action-buttons"
@@ -110,6 +115,7 @@ export class InfoViewComponent implements OnInit {
 
   selectedTeam: Team;
   selectedMember: Member;
+  member: Member;
   displayedColumns: string[] = ['teamId', 'startedOnTeam', 'leftTeam'];
   memberHistory: MemberHistory[] = [
     {teamId: 'P2P', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
@@ -120,7 +126,8 @@ export class InfoViewComponent implements OnInit {
     {teamId: 'CLO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
   ];
 
-  constructor(private stateService: StateService) {
+  constructor(private stateService: StateService,
+              public dialog: MatDialog) {
   }
 
   get showTeamView(): boolean {
@@ -156,5 +163,13 @@ export class InfoViewComponent implements OnInit {
     const firstName = member.firstName.split('');
     const email = (firstName[0] + member.lastName).toLowerCase();
     return email;
+  }
+
+  openDialog(member: Member): void {
+    this.dialog.open(EditDialogComponent, {
+      data: {
+        existingMember: member
+      }
+    });
   }
 }

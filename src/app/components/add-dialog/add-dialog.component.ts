@@ -7,6 +7,8 @@ import { Team } from '../../models/team.model';
 import { MemberService } from '../../services/member/member.service';
 import { TeamService } from '../../services/team/team.service';
 import { PhotoService } from '../../services/photo/photo.service';
+import { TeamService } from '../../services/team.service';
+import { Picture } from '../../models/picture.model';
 
 @Component({
   selector: 'app-add-dialog',
@@ -148,16 +150,5 @@ export class AddDialogComponent implements OnInit {
   setSelectedPic(pic: Picture) {
     this.selectedPic = pic;
     this.memberForm.get('pathToPhoto').setValue(pic.url);
-  }
-}
-
-// TODO: Create real model file
-export class Picture {
-  id: number;
-  url: string;
-
-  constructor(id: number) {
-    this.id = id;
-    this.url = 'https://picsum.photos/id/' + id + '/200/200';
   }
 }
