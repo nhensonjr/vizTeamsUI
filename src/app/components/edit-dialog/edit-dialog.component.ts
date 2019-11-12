@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Member } from '../../Models/member.model';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MemberService } from '../../services/member.service';
-import { PhotoService } from '../../services/photo.service';
 import { MAT_DIALOG_DATA, MatDialogRef, MatPaginator, PageEvent } from '@angular/material';
 import { Picture } from '../../models/picture.model';
+import { MemberService } from '../../services/member/member.service';
+import { PhotoService } from '../../services/photo/photo.service';
 
 @Component({
   selector: 'app-edit-dialog',

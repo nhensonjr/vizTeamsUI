@@ -5,10 +5,9 @@ import { Member } from '../../models/member.model';
 import { AddMemberDialogData } from '../../interfaces/add-member-dialog-data.interface';
 import { Team } from '../../models/team.model';
 import { MemberService } from '../../services/member/member.service';
-import { TeamService } from '../../services/team/team.service';
 import { PhotoService } from '../../services/photo/photo.service';
-import { TeamService } from '../../services/team.service';
 import { Picture } from '../../models/picture.model';
+import { TeamService } from '../../services/team/team.service';
 
 @Component({
   selector: 'app-add-dialog',

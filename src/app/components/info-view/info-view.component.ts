@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from '../../models/team.model';
 import { Member } from '../../models/member.model';
-import { StateService } from '../../services/state.service';
 import { MemberHistory } from '../../Models/member-history.model';
 import { MatDialog } from '@angular/material';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
-import { MemberHistory } from '../../models/member-history.model';
 import { StateService } from '../../services/state/state.service';
 
 @Component({
@@ -126,8 +124,10 @@ export class InfoViewComponent implements OnInit {
     {teamId: 'CLO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
   ];
 
-  constructor(private stateService: StateService,
-              public dialog: MatDialog) {
+  constructor(
+    private stateService: StateService,
+    public dialog: MatDialog
+  ) {
   }
 
   get showTeamView(): boolean {
