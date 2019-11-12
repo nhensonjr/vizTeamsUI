@@ -10,12 +10,13 @@ import { PhotoService } from '../../services/photo.service';
   template: `
       <form class="example-container" [formGroup]="memberForm">
           <div class="add-dialog__image-list">
-              <span class="add-dialog__image-container" *ngFor="let photo of photoUrls.slice(firstImage, lastImage)">
-                  <img class="add-dialog__image" src="{{photo.url}}" alt="">
+              <span class="add-dialog__image-container" *ngFor="let pic of pictureURLs.slice(firstImage, lastImage)">
+                  <img [ngClass]="pic === selectedPic ? 'add-dialog__selected-image' : 'add-dialog__image'"
+                       (click)="setSelectedPic(pic)" src="{{pic.url}}" alt="">
               </span>
           </div>
           <mat-paginator #matPaginator
-                         [length]="photoUrls.length"
+                         [length]="pictureURLs.length"
                          [pageSize]="5"
                          (page)="setPagedPhotos($event, matPaginator)">
           </mat-paginator>
@@ -55,10 +56,11 @@ import { PhotoService } from '../../services/photo.service';
 })
 export class AddDialogComponent implements OnInit {
   newMember: Member = new Member();
+  selectedPic: Picture;
   progressBar = 0;
   firstImage = 0;
   lastImage = 5;
-  photoUrls: Picture[] = [];
+  pictureURLs: Picture[] = [];
 
   memberForm = new FormGroup({
     pathToPhoto: new FormControl('https://picsum.photos/200'),
@@ -82,7 +84,7 @@ export class AddDialogComponent implements OnInit {
       imageList.forEach((image, index) => {
         // TODO: Decide if we need loading bar
         this.progressBar = ((index + 1) / (imageList.length) * 100);
-        this.photoUrls.push(new Picture(image.id));
+        this.pictureURLs.push(new Picture(image.id));
       });
     });
   }
@@ -107,6 +109,11 @@ export class AddDialogComponent implements OnInit {
     const pageIndex = matPaginator.pageIndex * matPaginator.pageSize;
     this.firstImage = pageIndex;
     this.lastImage = 5 + pageIndex;
+  }
+
+  setSelectedPic(pic: Picture) {
+    this.selectedPic = pic;
+    this.memberForm.get('pathToPhoto').setValue(pic.url);
   }
 }
 

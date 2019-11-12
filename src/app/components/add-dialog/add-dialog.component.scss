@@ -1,7 +1,7 @@
 .example-container {
   display: flex;
   flex-direction: column;
-  padding: 32px;
+  width: 644px;
 }
 
 .example-container > * {
@@ -29,6 +29,13 @@
 .add-dialog__image {
   height: 100px;
   width: 100px;
+  opacity: .5;
+}
+
+.add-dialog__selected-image {
+  height: 100px;
+  width: 100px;
+  border-bottom: solid #ff4e00;
 }
 
 .add-dialog__info-container {
@@ -37,5 +44,5 @@
 }
 
 mat-form-field {
-  width: 25%;
+  width: 45%;
 }

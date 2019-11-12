@@ -165,8 +165,6 @@ export class TeamListComponent implements OnInit {
 
   openDialog(team: Team): void {
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      height: '60vh',
-      width: '50vw',
       data: {teamName: team.name, allTeams: this.teams}
     });
 
