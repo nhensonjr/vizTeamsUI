@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatPaginator, PageEvent } from '@angular/material';
-import { MemberService } from '../../services/member.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Member } from '../../models/member.model';
-import { PhotoService } from '../../services/photo.service';
 import { AddMemberDialogData } from '../../interfaces/add-member-dialog-data.interface';
 import { Team } from '../../models/team.model';
-import { TeamService } from '../../services/team.service';
+import { MemberService } from '../../services/member/member.service';
+import { TeamService } from '../../services/team/team.service';
+import { PhotoService } from '../../services/photo/photo.service';
 
 @Component({
   selector: 'app-add-dialog',

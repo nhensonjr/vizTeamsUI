@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from '../../models/team.model';
 import { Member } from '../../models/member.model';
-import { StateService } from '../../services/state.service';
 import { MemberHistory } from '../../models/member-history.model';
+import { StateService } from '../../services/state/state.service';
 
 @Component({
   selector: 'app-info-view',
@@ -11,10 +11,10 @@ import { MemberHistory } from '../../models/member-history.model';
           <div class="info-view__team-selected" style="height: 100%" *ngIf="teamSelected(); else noSelections">
               <mat-card-header class="info-view__card-header">
                   <mat-card-title class="info-view__section-header">
-                      <span (click)="clearSelectedMember()">{{selectedTeam?.name}}</span>
+                      <span (click)="clearBreadCrumb()">{{selectedTeam?.name}}</span>
                       <span *ngIf="showMemberView">
                               > {{selectedMember.firstName}} {{selectedMember.lastName}}
-                          </span>
+                      </span>
                   </mat-card-title>
               </mat-card-header>
               <mat-card-content class="info-view__card-content">
@@ -144,7 +144,7 @@ export class InfoViewComponent implements OnInit {
     return this.selectedTeam !== undefined;
   }
 
-  clearSelectedMember(): void {
+  clearBreadCrumb(): void {
     this.stateService.selectedMember.next(undefined);
   }
 

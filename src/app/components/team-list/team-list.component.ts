@@ -4,10 +4,9 @@ import { MatDialog, MatExpansionPanel } from '@angular/material';
 import { Member } from '../../models/member.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AddDialogComponent } from '../add-dialog/add-dialog.component';
-import { TeamService } from '../../services/team.service';
-import { MemberService } from '../../services/member.service';
-import { StateService } from '../../services/state.service';
-import { MOCKTEAMS } from '../../../assets/mock-teams';
+import { StateService } from '../../services/state/state.service';
+import { TeamService } from '../../services/team/team.service';
+import { MemberService } from '../../services/member/member.service';
 
 @Component({
   selector: 'app-team-list',
@@ -80,8 +79,8 @@ import { MOCKTEAMS } from '../../../assets/mock-teams';
   styleUrls: ['./team-list.component.scss']
 })
 export class TeamListComponent implements OnInit {
-  teams: Team[] = MOCKTEAMS;
-  // teams: Team[] = [];
+  // teams: Team[] = MOCKTEAMS;
+  teams: Team[] = [];
 
   isDragging = false;
   previousPanel: MatExpansionPanel;
@@ -99,9 +98,9 @@ export class TeamListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.teamService.getAll().subscribe(teams => {
-    //   this.teams = teams;
-    // });
+    this.teamService.getAll().subscribe(teams => {
+      this.teams = teams;
+    });
     this.stateService.selectedTeam.subscribe(team => {
       this.selectedTeam = team;
     });
@@ -153,7 +152,7 @@ export class TeamListComponent implements OnInit {
     }
 
     memberToUpdate.team = teamId;
-    // this.memberService.updateMember(memberToUpdate).subscribe();
+    this.memberService.updateMember(memberToUpdate).subscribe();
   }
 
   showErrorPrompt(teamId: number, teamsWithErrors: number[]): boolean {
@@ -169,11 +168,11 @@ export class TeamListComponent implements OnInit {
       data: {teamName: team.name, teams: this.teams}
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.teamService.getAll().subscribe(teams => {
-    //     this.teams = teams;
-    //   });
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      this.teamService.getAll().subscribe(teams => {
+        this.teams = teams;
+      });
+    });
   }
 
   openAddTeamDialog(): void {
@@ -181,10 +180,10 @@ export class TeamListComponent implements OnInit {
       data: {}
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.teamService.getAll().subscribe(teams => {
-    //     this.teams = teams;
-    //   });
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      this.teamService.getAll().subscribe(teams => {
+        this.teams = teams;
+      });
+    });
   }
 }
