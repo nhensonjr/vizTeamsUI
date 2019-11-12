@@ -80,8 +80,8 @@ import { MOCKTEAMS } from '../../../assets/mock-teams';
   styleUrls: ['./team-list.component.scss']
 })
 export class TeamListComponent implements OnInit {
-  teams: Team[] = MOCKTEAMS;
-  // teams: Team[] = [];
+  // teams: Team[] = MOCKTEAMS;
+  teams: Team[] = [];
 
   isDragging = false;
   previousPanel: MatExpansionPanel;
@@ -99,9 +99,9 @@ export class TeamListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.teamService.getAll().subscribe(teams => {
-    //   this.teams = teams;
-    // });
+    this.teamService.getAll().subscribe(teams => {
+      this.teams = teams;
+    });
     this.stateService.selectedTeam.subscribe(team => {
       this.selectedTeam = team;
     });
@@ -153,7 +153,7 @@ export class TeamListComponent implements OnInit {
     }
 
     memberToUpdate.team = teamId;
-    // this.memberService.updateMember(memberToUpdate).subscribe();
+    this.memberService.updateMember(memberToUpdate).subscribe();
   }
 
   showErrorPrompt(teamId: number, teamsWithErrors: number[]): boolean {
@@ -169,11 +169,11 @@ export class TeamListComponent implements OnInit {
       data: {teamName: team.name, teams: this.teams}
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.teamService.getAll().subscribe(teams => {
-    //     this.teams = teams;
-    //   });
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      this.teamService.getAll().subscribe(teams => {
+        this.teams = teams;
+      });
+    });
   }
 
   openAddTeamDialog(): void {
@@ -181,10 +181,10 @@ export class TeamListComponent implements OnInit {
       data: {}
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.teamService.getAll().subscribe(teams => {
-    //     this.teams = teams;
-    //   });
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      this.teamService.getAll().subscribe(teams => {
+        this.teams = teams;
+      });
+    });
   }
 }

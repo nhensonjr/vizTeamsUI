@@ -13,12 +13,14 @@ import { AddDialogComponent } from './components/add-dialog/add-dialog.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { TeamListComponent } from './components/team-list/team-list.component';
 import { InfoViewComponent } from './components/info-view/info-view.component';
+import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SiteHeaderComponent,
     AddDialogComponent,
+    EditDialogComponent,
     TeamListComponent,
     InfoViewComponent,
   ],
@@ -34,7 +36,8 @@ import { InfoViewComponent } from './components/info-view/info-view.component';
   providers: [TeamService],
   bootstrap: [AppComponent],
   entryComponents: [
-    AddDialogComponent
+    AddDialogComponent,
+    EditDialogComponent
   ]
 })
 export class AppModule { }
