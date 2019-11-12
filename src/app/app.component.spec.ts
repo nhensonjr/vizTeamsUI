@@ -6,7 +6,6 @@ import { SiteHeaderComponent } from './components/site-header/site-header.compon
 import { MaterialModule } from './material.module';
 import { TeamListComponent } from './components/team-list/team-list.component';
 import { Router } from '@angular/router';
-import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -18,8 +17,7 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule.withRoutes([
           {path: '', redirectTo: 'team-list', pathMatch: 'full'},
-          {path: 'team-list', component: TeamListComponent},
-          {path: 'team/:id', component: TeamDetailComponent}
+          {path: 'team-list', component: TeamListComponent}
         ]),
         MaterialModule
       ],
@@ -27,7 +25,6 @@ describe('AppComponent', () => {
         AppComponent,
         SiteHeaderComponent,
         TeamListComponent,
-        TeamDetailComponent
       ]
     }).compileComponents();
 

@@ -169,9 +169,9 @@ export class TeamListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.teamService.getAll().subscribe(teams => {
-        this.teams = teams;
-      });
+      // this.teamService.getAll().subscribe(teams => {
+      //   this.teams = teams;
+      // });
     });
   }
 }

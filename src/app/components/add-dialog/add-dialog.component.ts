@@ -63,7 +63,7 @@ export class AddDialogComponent implements OnInit {
   pictureURLs: Picture[] = [];
 
   memberForm = new FormGroup({
-    pathToPhoto: new FormControl('https://picsum.photos/200'),
+    pathToPhoto: new FormControl(),
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     title: new FormControl(''),
@@ -82,22 +82,20 @@ export class AddDialogComponent implements OnInit {
     this.memberForm.get('team').setValue(this.data.teamName);
     this.photoService.getPhotos().subscribe((imageList: Picture[]) => {
       imageList.forEach((image, index) => {
-        // TODO: Decide if we need loading bar
-        this.progressBar = ((index + 1) / (imageList.length) * 100);
         this.pictureURLs.push(new Picture(image.id));
       });
     });
   }
 
   onSubmit(): void {
-    this.newMember.pathToPhoto = this.memberForm.get('pathToPhoto').value;
-    this.newMember.firstName = this.memberForm.get('firstName').value;
-    this.newMember.lastName = this.memberForm.get('lastName').value;
-    this.newMember.title = this.memberForm.get('title').value;
-    this.newMember.team = this.memberForm.get('team').value;
+    const newMember = new Member();
+    newMember.pathToPhoto = this.memberForm.get('pathToPhoto').value;
+    newMember.firstName = this.memberForm.get('firstName').value;
+    newMember.lastName = this.memberForm.get('lastName').value;
+    newMember.title = this.memberForm.get('title').value;
+    newMember.team = this.memberForm.get('team').value;
 
-    console.log('new member log: ', this.newMember);
-    this.memberService.createMember(this.newMember).subscribe();
+    this.memberService.createMember(newMember).subscribe();
     this.dialogRef.close();
   }
 
