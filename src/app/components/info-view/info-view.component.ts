@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from '../../models/team.model';
 import { Member } from '../../models/member.model';
-import { MemberHistory } from '../../Models/member-history.model';
 import { MatDialog } from '@angular/material';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { StateService } from '../../services/state/state.service';
+import { MemberHistory } from 'src/app/models/member-history.model';
 
 @Component({
   selector: 'app-info-view',
@@ -116,12 +116,12 @@ export class InfoViewComponent implements OnInit {
   member: Member;
   displayedColumns: string[] = ['teamId', 'startedOnTeam', 'leftTeam'];
   memberHistory: MemberHistory[] = [
-    {teamId: 'P2P', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
-    {teamId: 'Cornerstone', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
-    {teamId: 'Data Crispr', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
-    {teamId: 'Tam', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
-    {teamId: 'SSO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
-    {teamId: 'CLO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012'},
+    { teamId: 'P2P', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+    { teamId: 'Cornerstone', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+    { teamId: 'Data Crispr', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+    { teamId: 'Tam', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+    { teamId: 'SSO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+    { teamId: 'CLO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
   ];
 
   constructor(
