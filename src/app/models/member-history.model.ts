@@ -3,4 +3,5 @@ export class MemberHistory {
   memberId: number;
   startedOnTeam: string;
   leftTeam: string;
+  teamName: string;
 }

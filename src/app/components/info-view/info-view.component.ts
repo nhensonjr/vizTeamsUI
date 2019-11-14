@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Team } from '../../models/team.model';
-import { Member } from '../../models/member.model';
-import { MatDialog } from '@angular/material';
-import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
-import { StateService } from '../../services/state/state.service';
-import { MemberHistory } from 'src/app/models/member-history.model';
+import {Component, OnInit} from '@angular/core';
+import {Team} from '../../models/team.model';
+import {Member} from '../../models/member.model';
+import {MatDialog} from '@angular/material';
+import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
+import {StateService} from '../../services/state/state.service';
+import {MemberHistory} from 'src/app/models/member-history.model';
+import {HistoryService} from "../../services/history/history.service";
 
 @Component({
   selector: 'app-info-view',
@@ -49,7 +50,7 @@ import { MemberHistory } from 'src/app/models/member-history.model';
                       <table mat-table [dataSource]="memberHistory" class="info-view__member-history">
                           <ng-container matColumnDef="teamId">
                               <th mat-header-cell *matHeaderCellDef> Team Name</th>
-                              <td mat-cell *matCellDef="let entry"> {{entry.teamId}} </td>
+                              <td mat-cell *matCellDef="let entry"> {{entry.teamName}} </td>
                           </ng-container>
 
                           <ng-container matColumnDef="startedOnTeam">
@@ -89,7 +90,7 @@ import { MemberHistory } from 'src/app/models/member-history.model';
                       <span class="info-view__action-buttons"
                             matTooltipPosition="above"
                             matTooltip="Edit {{selectedMember.firstName}}"
-                      (click)="openDialog(selectedMember)">
+                            (click)="openDialog(selectedMember)">
                           <mat-icon class="info-view__icon">edit</mat-icon>
                       </span>
                       <span class="info-view__action-buttons"
@@ -115,18 +116,20 @@ export class InfoViewComponent implements OnInit {
   selectedMember: Member;
   member: Member;
   displayedColumns: string[] = ['teamId', 'startedOnTeam', 'leftTeam'];
-  memberHistory: MemberHistory[] = [
-    { teamId: 'P2P', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-    { teamId: 'Cornerstone', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-    { teamId: 'Data Crispr', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-    { teamId: 'Tam', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-    { teamId: 'SSO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-    { teamId: 'CLO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-  ];
+  memberHistory: MemberHistory[];
+  //   = [
+  //   { teamId: 'P2P', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+  //   { teamId: 'Cornerstone', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+  //   { teamId: 'Data Crispr', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+  //   { teamId: 'Tam', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+  //   { teamId: 'SSO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+  //   { teamId: 'CLO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
+  // ];
 
   constructor(
     private stateService: StateService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private historyService: HistoryService
   ) {
   }
 
@@ -144,6 +147,11 @@ export class InfoViewComponent implements OnInit {
     });
     this.stateService.selectedMember.subscribe(member => {
       this.selectedMember = member;
+      if (member !== null && member !== undefined) {
+        this.historyService.getMemberHistory(member.id).subscribe(history => {
+          this.memberHistory = history;
+        });
+      }
     });
   }
 
