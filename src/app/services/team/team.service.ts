@@ -8,7 +8,7 @@ import { Team } from '../../models/team.model';
 })
 export class TeamService {
 
-  baseURL = 'http://localhost:8080/team/';
+  baseURL = 'https://viz-teams-back.herokuapp.com/team/';
 
   constructor(private http: HttpClient) {
   }
