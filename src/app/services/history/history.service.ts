@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HistoryService {
 
-  memberHistoryUrl = 'http://localhost:8080/history/';
-  teamHistoryUrl = 'http://localhost:8080/history-team/';
+  memberHistoryUrl = 'https://viz-teams-back.herokuapp.com/history/';
+  teamHistoryUrl = 'https://viz-teams-back.herokuapp.com/history-team/';
 
   constructor(private http: HttpClient) {
   }
