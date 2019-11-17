@@ -165,7 +165,7 @@ export class TeamListComponent implements OnInit {
 
   openAddMemberDialog(team: Team): void {
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      data: {teamName: team.name, teams: this.teams}
+      data: {team, allTeams: this.teams.filter(t => t !== team)}
     });
 
     dialogRef.afterClosed().subscribe(result => {

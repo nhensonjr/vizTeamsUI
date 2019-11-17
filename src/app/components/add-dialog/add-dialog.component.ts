@@ -12,7 +12,7 @@ import { TeamService } from '../../services/team/team.service';
 @Component({
   selector: 'app-add-dialog',
   template: `
-      <div *ngIf="data.teamName; else teamDialog">
+      <div *ngIf="data.team; else teamDialog">
           <form class="example-container" [formGroup]="memberForm">
               <div class="add-dialog__image-list">
               <span class="add-dialog__image-container" *ngFor="let pic of pictureURLs.slice(firstImage, lastImage)">
@@ -46,7 +46,8 @@ import { TeamService } from '../../services/team/team.service';
 
                   <mat-form-field>
                       <mat-select placeholder="Team" formControlName="team">
-                          <mat-option *ngFor="let team of data.teams" value="{{team.id}}">{{team.name}}</mat-option>
+                          <mat-option [value]="this.data.team.id">{{data.team.name}}</mat-option>
+                          <mat-option *ngFor="let team of data.allTeams" value="{{team.id}}">{{team.name}}</mat-option>
                       </mat-select>
                   </mat-form-field>
               </div>
@@ -105,7 +106,9 @@ export class AddDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.memberForm.get('team').setValue(this.data.teamName);
+    if (this.data.team) {
+      this.memberForm.get('team').setValue(this.data.team.id);
+    }
     this.photoService.getPhotos().subscribe((imageList: Picture[]) => {
       imageList.forEach((image, index) => {
         this.pictureURLs.push(new Picture(image.id));
