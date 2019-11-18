@@ -20,4 +20,8 @@ export class TeamService {
   createTeam(team: Team): Observable<any> {
     return this.http.post(this.baseURL, team);
   }
+
+  updateTeam(team: Team): Observable<any> {
+    return this.http.put(this.baseURL, team);
+  }
 }

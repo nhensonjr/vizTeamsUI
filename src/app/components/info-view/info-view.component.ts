@@ -77,7 +77,8 @@ import {HistoryService} from "../../services/history/history.service";
                       </span>
                       <span class="info-view__action-buttons"
                             matTooltipPosition="above"
-                            matTooltip="Edit {{selectedTeam.name}}">
+                            matTooltip="Edit {{selectedTeam.name}}"
+                            (click)="openEditTeamDialog(selectedTeam)">
                           <mat-icon class="info-view__icon">edit</mat-icon>
                       </span>
                       <span class="info-view__action-buttons"
@@ -90,7 +91,7 @@ import {HistoryService} from "../../services/history/history.service";
                       <span class="info-view__action-buttons"
                             matTooltipPosition="above"
                             matTooltip="Edit {{selectedMember.firstName}}"
-                            (click)="openDialog(selectedMember)">
+                            (click)="openEditMemberDialog(selectedMember)">
                           <mat-icon class="info-view__icon">edit</mat-icon>
                       </span>
                       <span class="info-view__action-buttons"
@@ -173,10 +174,20 @@ export class InfoViewComponent implements OnInit {
     return email;
   }
 
-  openDialog(member: Member): void {
+  openEditMemberDialog(member: Member): void {
     this.dialog.open(EditDialogComponent, {
       data: {
-        existingMember: member
+        selectedMember: member,
+        selectedTeam: null
+      }
+    });
+  }
+
+  openEditTeamDialog(team: Team): void {
+    this.dialog.open(EditDialogComponent, {
+      data: {
+        selectedMember: null,
+        selectedTeam: team
       }
     });
   }

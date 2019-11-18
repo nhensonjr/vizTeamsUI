@@ -109,6 +109,8 @@ export class AddDialogComponent implements OnInit {
     if (this.data.team) {
       this.memberForm.get('team').setValue(this.data.team.id);
     }
+    this.memberForm.get('team').setValue('some value');
+
     this.photoService.getPhotos().subscribe((imageList: Picture[]) => {
       imageList.forEach((image, index) => {
         this.pictureURLs.push(new Picture(image.id));
