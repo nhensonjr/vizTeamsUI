@@ -19,6 +19,7 @@ import { MemberService } from '../../services/member/member.service';
                   </mat-card-title>
               </mat-card-header>
               <mat-card-content class="team-list__card-content">
+                  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
                   <mat-accordion cdkDropListGroup multi="true">
                       <mat-expansion-panel *ngFor="let team of teams" #panel (click)="setSelectedTeam(team)"
                                            (mouseenter)="onMouseEnter(panel)"
@@ -82,6 +83,7 @@ export class TeamListComponent implements OnInit {
   // teams: Team[] = MOCKTEAMS;
   teams: Team[] = [];
 
+  isLoading = true;
   isDragging = false;
   previousPanel: MatExpansionPanel;
   selectedTeam: Team;
@@ -100,6 +102,7 @@ export class TeamListComponent implements OnInit {
   ngOnInit() {
     this.teamService.getAll().subscribe(teams => {
       this.teams = teams;
+      this.isLoading = false;
     });
     this.stateService.selectedTeam.subscribe(team => {
       this.selectedTeam = team;

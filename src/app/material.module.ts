@@ -29,7 +29,8 @@ import {
     MatInputModule,
     MatIconModule,
     MatProgressBarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressBarModule,
   ],
   exports: [
     MatButtonModule,
@@ -44,7 +45,8 @@ import {
     MatInputModule,
     MatIconModule,
     MatProgressBarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressBarModule,
   ]
 })
 export class MaterialModule {
