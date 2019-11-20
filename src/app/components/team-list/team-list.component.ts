@@ -174,10 +174,8 @@ export class TeamListComponent implements OnInit {
         data: {team, allTeams: this.teams.filter(t => t !== team)}
       });
 
-      dialogRef.afterClosed().subscribe(result => {
-        this.teamService.getAll().subscribe(teams => {
-          this.teams = teams;
-        });
+      dialogRef.afterClosed().subscribe(newMember => {
+        this.selectedTeam.members.push(newMember);
       });
     }
   }
@@ -187,10 +185,8 @@ export class TeamListComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.teamService.getAll().subscribe(teams => {
-        this.teams = teams;
-      });
+    dialogRef.afterClosed().subscribe(newTeam => {
+      this.stateService.updateState();
     });
   }
 }

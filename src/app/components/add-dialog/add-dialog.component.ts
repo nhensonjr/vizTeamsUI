@@ -135,7 +135,7 @@ export class AddDialogComponent implements OnInit {
       );
 
       this.memberService.createMember(newMember).subscribe();
-      this.dialogRef.close();
+      this.dialogRef.close(newMember);
     }
   }
 
@@ -147,7 +147,7 @@ export class AddDialogComponent implements OnInit {
       );
 
       this.teamService.createTeam(newTeam).subscribe();
-      this.dialogRef.close();
+      this.dialogRef.close(newTeam);
     } else {
       this.teamForm.get('name').setValue('');
       this.teamForm.get('name').setErrors({incorrect: true});
