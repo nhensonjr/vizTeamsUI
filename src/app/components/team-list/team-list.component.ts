@@ -101,16 +101,12 @@ export class TeamListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teamService.getAll().subscribe(teams => {
+    this.stateService.allTeams.subscribe(teams => {
       this.teams = teams;
       this.isLoading = false;
     });
-    this.stateService.selectedTeam.subscribe(team => {
-      this.selectedTeam = team;
-    });
-    this.stateService.selectedMember.subscribe(member => {
-      this.selectedMember = member;
-    });
+    this.stateService.selectedTeam.subscribe(team => this.selectedTeam = team);
+    this.stateService.selectedMember.subscribe(member => this.selectedMember = member);
   }
 
   setSelectedTeam(team: Team): void {

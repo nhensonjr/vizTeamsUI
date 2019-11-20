@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {StateService} from './services/state/state.service';
+import {TeamService} from './services/team/team.service';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +15,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor() {  }
+  constructor(private stateService: StateService  ) {  }
 
   ngOnInit() {
+    this. stateService.updateState();
   }
 }

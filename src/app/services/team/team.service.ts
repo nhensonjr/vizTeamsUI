@@ -24,4 +24,8 @@ export class TeamService {
   updateTeam(team: Team): Observable<any> {
     return this.http.put(this.baseURL, team);
   }
+
+  deleteTeam(team: Team): Observable<any> {
+    return this.http.delete(this.baseURL + team.id, {responseType: 'text'});
+  }
 }

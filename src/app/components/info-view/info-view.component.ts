@@ -5,7 +5,9 @@ import {MatDialog} from '@angular/material';
 import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
 import {StateService} from '../../services/state/state.service';
 import {MemberHistory} from 'src/app/models/member-history.model';
-import {HistoryService} from "../../services/history/history.service";
+import {HistoryService} from '../../services/history/history.service';
+import {TeamService} from '../../services/team/team.service';
+import {MemberService} from '../../services/member/member.service';
 
 @Component({
   selector: 'app-info-view',
@@ -83,7 +85,8 @@ import {HistoryService} from "../../services/history/history.service";
                       </span>
                       <span class="info-view__action-buttons"
                             matTooltipPosition="above"
-                            matTooltip="Archive {{selectedTeam.name}}">
+                            matTooltip="Archive {{selectedTeam.name}}"
+                            (click)="deleteTeam(selectedTeam)">
                           <mat-icon class="info-view__icon">archive</mat-icon>
                       </span>
                   </div>
@@ -96,7 +99,8 @@ import {HistoryService} from "../../services/history/history.service";
                       </span>
                       <span class="info-view__action-buttons"
                             matTooltipPosition="above"
-                            matTooltip="Archive {{selectedMember.firstName}}">
+                            matTooltip="Archive {{selectedMember.firstName}}"
+                            (click)="deleteMember(selectedMember, selectedTeam)">
                           <mat-icon class="info-view__icon">archive</mat-icon>
                       </span>
                   </div>
@@ -118,16 +122,10 @@ export class InfoViewComponent implements OnInit {
   member: Member;
   displayedColumns: string[] = ['teamId', 'startedOnTeam', 'leftTeam'];
   memberHistory: MemberHistory[];
-  //   = [
-  //   { teamId: 'P2P', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-  //   { teamId: 'Cornerstone', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-  //   { teamId: 'Data Crispr', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-  //   { teamId: 'Tam', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-  //   { teamId: 'SSO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-  //   { teamId: 'CLO', memberId: 2, startedOnTeam: '12/12/2012', leftTeam: '12/12/2012' },
-  // ];
 
   constructor(
+    private memberService: MemberService,
+    private teamService: TeamService,
     private stateService: StateService,
     public dialog: MatDialog,
     private historyService: HistoryService
@@ -170,8 +168,7 @@ export class InfoViewComponent implements OnInit {
 
   createEmailAddress(member: Member): string {
     const firstName = member.firstName.split('');
-    const email = (firstName[0] + member.lastName).toLowerCase();
-    return email;
+    return (firstName[0] + member.lastName).toLowerCase();
   }
 
   openEditMemberDialog(member: Member): void {
@@ -189,6 +186,24 @@ export class InfoViewComponent implements OnInit {
         selectedMember: null,
         selectedTeam: team
       }
+    });
+  }
+
+  deleteTeam(team: Team): void {
+    this.stateService.selectedTeam.next(undefined);
+    this.teamService.deleteTeam(team).subscribe(response => {
+      console.log('response: ', response);
+      this.stateService.updateState();
+    });
+  }
+
+  deleteMember(member: Member, team: Team): void {
+    this.stateService.selectedMember.next(undefined);
+    team.members = team.members.filter(m => m.id !== member.id);
+    this.stateService.selectedTeam.next(team);
+    this.memberService.deleteMember(member).subscribe(response => {
+      console.log('response: ', response);
+      this.stateService.updateState();
     });
   }
 }

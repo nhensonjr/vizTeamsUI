@@ -24,4 +24,8 @@ export class MemberService {
   createMember(member: Member): Observable<any> {
     return this.http.post(this.baseURL, member);
   }
+
+  deleteMember(member: Member): Observable<any> {
+    return this.http.delete(this.baseURL + member.id, {responseType: 'text'});
+  }
 }
