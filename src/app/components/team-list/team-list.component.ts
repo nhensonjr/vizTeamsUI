@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Team } from '../../models/team.model';
-import { MatDialog, MatExpansionPanel } from '@angular/material';
-import { Member } from '../../models/member.model';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { AddDialogComponent } from '../add-dialog/add-dialog.component';
-import { StateService } from '../../services/state/state.service';
-import { TeamService } from '../../services/team/team.service';
-import { MemberService } from '../../services/member/member.service';
+import {Component, OnInit} from '@angular/core';
+import {Team} from '../../models/team.model';
+import {MatDialog, MatExpansionPanel} from '@angular/material';
+import {Member} from '../../models/member.model';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {AddDialogComponent} from '../add-dialog/add-dialog.component';
+import {StateService} from '../../services/state/state.service';
+import {TeamService} from '../../services/team/team.service';
+import {MemberService} from '../../services/member/member.service';
 
 @Component({
   selector: 'app-team-list',
@@ -34,7 +34,8 @@ import { MemberService } from '../../services/member/member.service';
                                cdkDropListOrientation="horizontal"
                                [cdkDropListData]="team.members"
                                (cdkDropListDropped)="drop($event, team.id)">
-                              <div *ngIf="team.members.length === 0 && !isDragging" class="team-list__no-members-prompt">
+                              <div *ngIf="team.members.length === 0 && !isDragging"
+                                   class="team-list__no-members-prompt">
                                   <span>No members on this team.</span>
                               </div>
                               <img class="team-list__member-list-photo" cdkDrag *ngFor="let member of team.members"
@@ -167,15 +168,22 @@ export class TeamListComponent implements OnInit {
   }
 
   openAddMemberDialog(team: Team): void {
-    const dialogRef = this.dialog.open(AddDialogComponent, {
-      data: {team, allTeams: this.teams.filter(t => t !== team)}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.teamService.getAll().subscribe(teams => {
-        this.teams = teams;
+    if (team.members.length >= 12) {
+      this.teamsWithErrors.push(team.id);
+      setTimeout(() => {
+        this.clearErrorPrompt();
+      }, 3000);
+    } else {
+      const dialogRef = this.dialog.open(AddDialogComponent, {
+        data: {team, allTeams: this.teams.filter(t => t !== team)}
       });
-    });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.teamService.getAll().subscribe(teams => {
+          this.teams = teams;
+        });
+      });
+    }
   }
 
   openAddTeamDialog(): void {
