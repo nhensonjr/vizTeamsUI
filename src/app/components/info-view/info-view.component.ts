@@ -50,7 +50,7 @@ import { TeamHistory } from '../../models/team-history.model';
                           <div class="info-view__member-view-info-container">
                               <div>{{selectedMember.firstName}} {{selectedMember.lastName}}</div>
                               <div>{{selectedMember.title}}</div>
-                              <div>{{createEmailAddress(selectedMember)}}@vizientinc.com</div>
+                              <div>{{createEmailAddress(selectedMember)}}</div>
                           </div>
                       </div>
                       <table mat-table [dataSource]="memberHistory" class="info-view__history-table">
@@ -76,17 +76,17 @@ import { TeamHistory } from '../../models/team-history.model';
                   <div class="info-view__team-history-container" *ngIf="showHistoryView">
                       <table mat-table [dataSource]="dataSource" class="info-view__history-table">
                           <ng-container matColumnDef="memberName">
-                              <th mat-header-cell *matHeaderCellDef> Member Name </th>
+                              <th mat-header-cell *matHeaderCellDef> Member Name</th>
                               <td mat-cell *matCellDef="let element"> {{element.memberName}} </td>
                           </ng-container>
 
                           <ng-container matColumnDef="startedOnTeam">
-                              <th mat-header-cell *matHeaderCellDef> Start Date </th>
+                              <th mat-header-cell *matHeaderCellDef> Start Date</th>
                               <td mat-cell *matCellDef="let element"> {{element.startedOnTeam}} </td>
                           </ng-container>
 
                           <ng-container matColumnDef="leftTeam">
-                              <th mat-header-cell *matHeaderCellDef> End Date </th>
+                              <th mat-header-cell *matHeaderCellDef> End Date</th>
                               <td mat-cell *matCellDef="let element"> {{element.leftTeam}} </td>
                           </ng-container>
                           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -141,35 +141,14 @@ import { TeamHistory } from '../../models/team-history.model';
   styleUrls: ['./info-view.component.scss']
 })
 export class InfoViewComponent implements OnInit {
-
   displayedColumns: string[] = ['memberName', 'startedOnTeam', 'leftTeam'];
-  dataSource = [
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
-  ];
+  memberHistoryColumns: string[] = ['teamId', 'startedOnTeam', 'leftTeam'];
+
+  dataSource = [];
 
   selectedTeam: Team;
   selectedMember: Member;
   member: Member;
-  memberHistoryColumns: string[] = ['teamId', 'startedOnTeam', 'leftTeam'];
   memberHistory: MemberHistory[];
   showTeamHistory = false;
 
@@ -197,12 +176,6 @@ export class InfoViewComponent implements OnInit {
   ngOnInit() {
     this.stateService.selectedTeam.subscribe(team => {
       this.selectedTeam = team;
-      // if (team !== null && team !== undefined) {
-      //   this.historyService.getTeamHistory(team.id).subscribe(history => {
-      //     this.teamHistory = history;
-      //     console.log('teamHistory: ', history);
-      //   });
-      // }
     });
     this.stateService.selectedMember.subscribe(member => {
       this.selectedMember = member;
@@ -229,8 +202,7 @@ export class InfoViewComponent implements OnInit {
   }
 
   createEmailAddress(member: Member): string {
-    const firstName = member.firstName.split('');
-    return (firstName[0] + member.lastName).toLowerCase();
+    return (member.firstName.charAt(0) + member.lastName).toLowerCase() + '@vizientinc.com';
   }
 
   openEditMemberDialog(member: Member): void {
@@ -257,7 +229,7 @@ export class InfoViewComponent implements OnInit {
       this.stateService.selectedTeam.next(undefined);
       this.teamService.deleteTeam(team).subscribe(response => {
         console.log('response: ', response);
-        this.stateService.updateState();
+        this.stateService.refresh();
       });
     }
   }
@@ -269,7 +241,7 @@ export class InfoViewComponent implements OnInit {
       this.stateService.selectedTeam.next(team);
       this.memberService.deleteMember(member).subscribe(response => {
         console.log('response: ', response);
-        this.stateService.updateState();
+        this.stateService.refresh();
       });
     }
   }

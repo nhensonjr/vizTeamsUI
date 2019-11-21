@@ -7,6 +7,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HistoryService {
 
+  // TODO: setup fancy environment variables
+
+  // memberHistoryUrl = 'http://localhost:8080/history/';
+  // teamHistoryUrl = 'http://localhost:8080/history-team/';
   memberHistoryUrl = 'https://viz-teams-back.herokuapp.com/history/';
   teamHistoryUrl = 'https://viz-teams-back.herokuapp.com/history-team/';
 

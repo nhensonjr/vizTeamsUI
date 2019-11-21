@@ -15,7 +15,7 @@ export class StateService {
   constructor(private teamService: TeamService) {
   }
 
-  updateState(): void {
+  refresh(): void {
     this.teamService.getAll().subscribe(teams => {
       this.allTeams.next(teams);
     });

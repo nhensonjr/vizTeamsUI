@@ -8,6 +8,9 @@ import { Member } from '../../models/member.model';
 })
 export class MemberService {
 
+  // TODO: setup fancy environment variables
+
+  // baseURL = 'http://localhost:8080/member/';
   baseURL = 'https://viz-teams-back.herokuapp.com/member/';
 
   constructor(private http: HttpClient) {

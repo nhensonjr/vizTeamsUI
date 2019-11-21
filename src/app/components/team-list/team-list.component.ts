@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Team} from '../../models/team.model';
-import {MatDialog, MatExpansionPanel} from '@angular/material';
-import {Member} from '../../models/member.model';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {AddDialogComponent} from '../add-dialog/add-dialog.component';
-import {StateService} from '../../services/state/state.service';
-import {TeamService} from '../../services/team/team.service';
-import {MemberService} from '../../services/member/member.service';
+import { Component, OnInit } from '@angular/core';
+import { Team } from '../../models/team.model';
+import { MatDialog, MatExpansionPanel } from '@angular/material';
+import { Member } from '../../models/member.model';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { AddDialogComponent } from '../add-dialog/add-dialog.component';
+import { StateService } from '../../services/state/state.service';
+import { TeamService } from '../../services/team/team.service';
+import { MemberService } from '../../services/member/member.service';
 
 @Component({
   selector: 'app-team-list',
@@ -81,8 +81,8 @@ import {MemberService} from '../../services/member/member.service';
   styleUrls: ['./team-list.component.scss']
 })
 export class TeamListComponent implements OnInit {
-  // teams: Team[] = MOCKTEAMS;
   teams: Team[] = [];
+  teamsWithErrors: number[] = [];
 
   isLoading = true;
   isDragging = false;
@@ -90,7 +90,6 @@ export class TeamListComponent implements OnInit {
   selectedTeam: Team;
   selectedMember: Member;
   hoveredPanel: MatExpansionPanel;
-  teamsWithErrors: number[] = [];
 
   constructor(
     private stateService: StateService,
@@ -186,7 +185,7 @@ export class TeamListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(newTeam => {
-      this.stateService.updateState();
+      this.stateService.refresh();
     });
   }
 }
