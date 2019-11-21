@@ -8,6 +8,7 @@ import { MemberHistory } from 'src/app/models/member-history.model';
 import { HistoryService } from '../../services/history/history.service';
 import { TeamService } from '../../services/team/team.service';
 import { MemberService } from '../../services/member/member.service';
+import { TeamHistory } from '../../models/team-history.model';
 
 @Component({
   selector: 'app-info-view',
@@ -19,6 +20,9 @@ import { MemberService } from '../../services/member/member.service';
                       <span (click)="clearBreadCrumb()">{{selectedTeam?.name}}</span>
                       <span *ngIf="showMemberView">
                               > {{selectedMember.firstName}} {{selectedMember.lastName}}
+                      </span>
+                      <span *ngIf="showHistoryView">
+                              > History
                       </span>
                   </mat-card-title>
               </mat-card-header>
@@ -49,7 +53,7 @@ import { MemberService } from '../../services/member/member.service';
                               <div>{{createEmailAddress(selectedMember)}}@vizientinc.com</div>
                           </div>
                       </div>
-                      <table mat-table [dataSource]="memberHistory" class="info-view__member-history">
+                      <table mat-table [dataSource]="memberHistory" class="info-view__history-table">
                           <ng-container matColumnDef="teamId">
                               <th mat-header-cell *matHeaderCellDef> Team Name</th>
                               <td mat-cell *matCellDef="let entry"> {{entry.teamName}} </td>
@@ -65,16 +69,37 @@ import { MemberService } from '../../services/member/member.service';
                               <td mat-cell *matCellDef="let entry"> {{entry.leftTeam}} </td>
                           </ng-container>
 
+                          <tr mat-header-row *matHeaderRowDef="memberHistoryColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: memberHistoryColumns;"></tr>
+                      </table>
+                  </div>
+                  <div class="info-view__team-history-container" *ngIf="showHistoryView">
+                      <table mat-table [dataSource]="dataSource" class="info-view__history-table">
+                          <ng-container matColumnDef="memberName">
+                              <th mat-header-cell *matHeaderCellDef> Member Name </th>
+                              <td mat-cell *matCellDef="let element"> {{element.memberName}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="startedOnTeam">
+                              <th mat-header-cell *matHeaderCellDef> Start Date </th>
+                              <td mat-cell *matCellDef="let element"> {{element.startedOnTeam}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="leftTeam">
+                              <th mat-header-cell *matHeaderCellDef> End Date </th>
+                              <td mat-cell *matCellDef="let element"> {{element.leftTeam}} </td>
+                          </ng-container>
                           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                       </table>
                   </div>
               </mat-card-content>
               <mat-card-actions class="info-view__card-actions">
-                  <div *ngIf="showTeamView">
+                  <div *ngIf="showTeamView || showHistoryView">
                       <span class="info-view__action-buttons"
                             matTooltipPosition="above"
-                            matTooltip="{{selectedTeam.name}} History">
+                            matTooltip="{{selectedTeam.name}} History"
+                            (click)="this.showTeamHistory = !this.showTeamHistory">
                           <mat-icon class="info-view__icon">history</mat-icon>
                       </span>
                       <span class="info-view__action-buttons"
@@ -117,11 +142,36 @@ import { MemberService } from '../../services/member/member.service';
 })
 export class InfoViewComponent implements OnInit {
 
+  displayedColumns: string[] = ['memberName', 'startedOnTeam', 'leftTeam'];
+  dataSource = [
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+    {memberName: 'New Member', startedOnTeam: '2020-12-12', leftTeam: '2121-12-12'},
+  ];
+
   selectedTeam: Team;
   selectedMember: Member;
   member: Member;
-  displayedColumns: string[] = ['teamId', 'startedOnTeam', 'leftTeam'];
+  memberHistoryColumns: string[] = ['teamId', 'startedOnTeam', 'leftTeam'];
   memberHistory: MemberHistory[];
+  showTeamHistory = false;
 
   constructor(
     private memberService: MemberService,
@@ -133,22 +183,33 @@ export class InfoViewComponent implements OnInit {
   }
 
   get showTeamView(): boolean {
-    return this.selectedTeam !== undefined && this.selectedMember === undefined;
+    return this.selectedTeam !== undefined && this.selectedMember === undefined && !this.showTeamHistory;
   }
 
   get showMemberView(): boolean {
-    return this.selectedTeam !== undefined && this.selectedMember !== undefined;
+    return this.selectedTeam !== undefined && this.selectedMember !== undefined && !this.showTeamHistory;
+  }
+
+  get showHistoryView(): boolean {
+    return this.selectedTeam !== undefined && this.selectedMember === undefined && this.showTeamHistory;
   }
 
   ngOnInit() {
     this.stateService.selectedTeam.subscribe(team => {
       this.selectedTeam = team;
+      // if (team !== null && team !== undefined) {
+      //   this.historyService.getTeamHistory(team.id).subscribe(history => {
+      //     this.teamHistory = history;
+      //     console.log('teamHistory: ', history);
+      //   });
+      // }
     });
     this.stateService.selectedMember.subscribe(member => {
       this.selectedMember = member;
       if (member !== null && member !== undefined) {
         this.historyService.getMemberHistory(member.id).subscribe(history => {
           this.memberHistory = history;
+          console.log('memberHistory: ', history);
         });
       }
     });
@@ -160,6 +221,7 @@ export class InfoViewComponent implements OnInit {
 
   clearBreadCrumb(): void {
     this.stateService.selectedMember.next(undefined);
+    this.showTeamHistory = false;
   }
 
   setSelectedMember(member: Member): void {
