@@ -27,18 +27,21 @@ import { TeamService } from '../../services/team/team.service';
               </mat-paginator>
 
               <mat-form-field>
-                  <input matInput placeholder="First Name" formControlName="firstName">
+                  <input matInput placeholder="First Name" formControlName="firstName" required>
+                  <mat-error>First name required</mat-error>
               </mat-form-field>
 
               <mat-form-field>
-                  <input matInput placeholder="Last Name" formControlName="lastName">
+                  <input matInput placeholder="Last Name" formControlName="lastName" required>
+                  <mat-error>Last name required</mat-error>
               </mat-form-field>
 
               <mat-form-field>
-                  <mat-select placeholder="Title" formControlName="title">
+                  <mat-select placeholder="Title" formControlName="title" required>
                       <mat-option value="Software Engineer">Software Engineer</mat-option>
                       <mat-option value="Quality Engineer">Quality Engineer</mat-option>
                   </mat-select>
+                  <mat-error>Title name required</mat-error>
               </mat-form-field>
               <div class="buttons">
                   <button mat-button (click)="onCancel()">Cancel</button>
@@ -49,7 +52,8 @@ import { TeamService } from '../../services/team/team.service';
       <div *ngIf="data.selectedTeam">
           <form class="example-container" [formGroup]="teamForm">
               <mat-form-field>
-                  <input matInput placeholder="Team Name" formControlName="name" [value]="teamForm.get('name').value">
+                  <input matInput placeholder="Team Name" formControlName="name" [value]="teamForm.get('name').value" required>
+                  <mat-error>Team name required</mat-error>
               </mat-form-field>
 
               <mat-form-field>
@@ -116,21 +120,30 @@ export class EditDialogComponent implements OnInit {
   }
 
   onMemberSubmit(memberForm: FormGroup): void {
-    this.updatedMember.pathToPhoto = memberForm.get('pathToPhoto').value;
-    this.updatedMember.firstName = memberForm.get('firstName').value;
-    this.updatedMember.lastName = memberForm.get('lastName').value;
-    this.updatedMember.title = memberForm.get('title').value;
+    if (this.memberFormHasErrors(memberForm)) {
+      this.setMemberFormErrors(memberForm);
+    } else {
+      this.updatedMember.pathToPhoto = memberForm.get('pathToPhoto').value;
+      this.updatedMember.firstName = memberForm.get('firstName').value;
+      this.updatedMember.lastName = memberForm.get('lastName').value;
+      this.updatedMember.title = memberForm.get('title').value;
 
-    this.memberService.updateMember(this.updatedMember).subscribe();
-    this.dialogRef.close();
+      this.memberService.updateMember(this.updatedMember).subscribe();
+      this.dialogRef.close();
+    }
   }
 
   onTeamSubmit(teamForm: FormGroup) {
-    this.updatedTeam.name = teamForm.get('name').value;
-    this.updatedTeam.description = teamForm.get('description').value;
+    if (teamForm.get('name').value.trim() === '') {
+      this.teamForm.get('name').setValue('');
+      this.teamForm.get('name').setErrors({incorrect: true});
+    } else {
+      this.updatedTeam.name = teamForm.get('name').value;
+      this.updatedTeam.description = teamForm.get('description').value;
 
-    this.teamService.updateTeam(this.updatedTeam).subscribe();
-    this.dialogRef.close();
+      this.teamService.updateTeam(this.updatedTeam).subscribe();
+      this.dialogRef.close();
+    }
   }
 
   onCancel(): void {
@@ -146,6 +159,34 @@ export class EditDialogComponent implements OnInit {
   setSelectedPic(pic: Picture) {
     this.selectedPic = pic;
     this.memberForm.get('pathToPhoto').setValue(pic.url);
+  }
+
+  setMemberFormErrors(form: FormGroup): void {
+    if (form.get('firstName').value.trim() === '') {
+      form.get('firstName').setValue('');
+      form.get('firstName').setErrors({incorrect: true});
+    }
+    if (form.get('lastName').value.trim() === '') {
+      form.get('lastName').setValue('');
+      form.get('lastName').setErrors({incorrect: true});
+    }
+    if (form.get('title').value === '') {
+      form.get('title').setValue('');
+      form.get('title').setErrors({incorrect: true});
+    }
+  }
+
+  memberFormHasErrors(form: FormGroup): boolean {
+    if (form.get('firstName').value.trim() === '') {
+      return true;
+    }
+    if (form.get('lastName').value.trim() === '') {
+      return true;
+    }
+    if (form.get('title').value === '') {
+      return true;
+    }
+    return false;
   }
 }
 
