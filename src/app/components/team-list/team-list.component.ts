@@ -20,7 +20,7 @@ import { MemberService } from '../../services/member/member.service';
         </mat-card-header>
         <mat-card-content class="team-list__card-content">
           <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-          <mat-accordion cdkDropListGroup multi="true">
+          <mat-accordion *ngIf="!isLoading && teams.length > 0" cdkDropListGroup multi="true">
             <mat-expansion-panel *ngFor="let team of teams" #panel (click)="setSelectedTeam(team)"
                                  (mouseenter)="onMouseEnter(panel)"
                                  (mouseleave)="onMouseLeave(panel, previousPanel)">
@@ -61,6 +61,10 @@ import { MemberService } from '../../services/member/member.service';
               </mat-action-row>
             </mat-expansion-panel>
           </mat-accordion>
+          <div *ngIf="!isLoading && teams.length === 0" class="team-list__add-team-prompt">
+            <div>Get Started!</div>
+            <div>Add a team to start using VizTeams.</div>
+          </div>
         </mat-card-content>
         <mat-card-actions class="team-list__card-actions">
                   <span class="team-list__action-buttons"
@@ -101,7 +105,9 @@ export class TeamListComponent implements OnInit {
 
   ngOnInit() {
     this.stateService.allTeams.subscribe(teams => {
-      this.teams = teams;
+      if (teams !== null && teams !== undefined) {
+        this.teams = teams;
+      }
       this.isLoading = false;
     });
     this.stateService.selectedTeam.subscribe(team => this.selectedTeam = team);
@@ -186,7 +192,7 @@ export class TeamListComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(newTeam => {
+    dialogRef.afterClosed().subscribe(() => {
       this.stateService.refresh();
     });
   }

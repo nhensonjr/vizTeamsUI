@@ -9,7 +9,6 @@
 .site-header__app-name-container {
   display: flex;
   align-items: center;
-  cursor: pointer;
   outline: 0;
 }
 
@@ -24,11 +23,11 @@
 }
 
 .site-header__app-name {
+  cursor: default;
   font-size: x-large;
-  padding: 0px 16px;
+  padding: 0 16px;
 }
 
 .site-header__user-name {
-  cursor: pointer;
-  padding: 0px 16px;
+  padding: 0 16px;
 }

@@ -15,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { InfoViewComponent } from './components/info-view/info-view.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { DevDialogComponent } from './components/dev-dialog/dev-dialog.component';
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     EditDialogComponent,
     TeamListComponent,
     InfoViewComponent,
+    DevDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   bootstrap: [AppComponent],
   entryComponents: [
     AddDialogComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    DevDialogComponent
   ]
 })
 export class AppModule { }

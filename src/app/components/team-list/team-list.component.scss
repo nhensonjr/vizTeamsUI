@@ -1,3 +1,5 @@
+@import "src/variables";
+
 //  Team list Container //
 
 .team-list__container {
@@ -15,12 +17,12 @@
 }
 
 .team-list__section-header {
-  color: rgba(69, 90, 100, .87);
+  color: $font-color;
   font-size: x-large;
 }
 
 .team-list__team-header {
-  color: rgba(69, 90, 100, .87);
+  color: $font-color;
   font-size: large;
 }
 
@@ -42,7 +44,7 @@
 .team-list__icon {
   margin: 8px;
   cursor: pointer;
-  color: rgba(69, 90, 100, .87);
+  color: $font-color;
 }
 
 .team-list__member-list-photo {
@@ -52,7 +54,7 @@
 }
 
 .team-list__no-members-prompt {
-  color: rgba(69, 90, 100, .87);
+  color: $font-color;
   font-size: large;
   height: 100%;
   width: 100%;
@@ -73,7 +75,7 @@
 
 .team-list__member-counter {
   margin: 8px;
-  color: rgba(69, 90, 100, .87);
+  color: $font-color;
 }
 
 .team-list__error-prompt {
@@ -91,7 +93,7 @@
   margin: 0;
   padding: 8px 24px;
   border-top: solid 1px lightgray;
-  color: rgba(69, 90, 100, .87);
+  color: $font-color;
 }
 
 //  Animation Code  //
