@@ -11,72 +11,72 @@ import { MemberService } from '../../services/member/member.service';
 @Component({
   selector: 'app-team-list',
   template: `
-      <mat-card class="team-list__container">
-          <div class="team-list__card-container">
-              <mat-card-header style="border-bottom: solid 1px lightgray">
-                  <mat-card-title class="team-list__section-header">
-                      Teams
-                  </mat-card-title>
-              </mat-card-header>
-              <mat-card-content class="team-list__card-content">
-                  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-                  <mat-accordion cdkDropListGroup multi="true">
-                      <mat-expansion-panel *ngFor="let team of teams" #panel (click)="setSelectedTeam(team)"
-                                           (mouseenter)="onMouseEnter(panel)"
-                                           (mouseleave)="onMouseLeave(panel, previousPanel)">
-                          <mat-expansion-panel-header>
-                              <mat-panel-title class="team-list__team-header">
-                                  {{team.name}}
-                              </mat-panel-title>
-                          </mat-expansion-panel-header>
-                          <div class="team-list__member-list-container"
-                               cdkDropList
-                               cdkDropListOrientation="horizontal"
-                               [cdkDropListData]="team.members"
-                               (cdkDropListDropped)="drop($event, team.id)">
-                              <div *ngIf="team.members.length === 0 && !isDragging"
-                                   class="team-list__no-members-prompt">
-                                  <span>No members on this team.</span>
-                              </div>
-                              <img class="team-list__member-list-photo" cdkDrag *ngFor="let member of team.members"
-                                   (cdkDragStarted)="isDragging = true; previousPanel = panel"
-                                   (cdkDragEnded)="isDragging = false"
-                                   src="{{member.pathToPhoto}}"
-                                   alt="{{member.firstName}} {{member.lastName}}"
-                                   [matTooltipDisabled]="isDragging"
-                                   matTooltipPosition="above"
-                                   matTooltip="{{member.firstName}} {{member.lastName}}">
-                          </div>
-                          <mat-action-row class="team-list__acton-row">
+    <mat-card class="team-list__container">
+      <div class="team-list__card-container">
+        <mat-card-header style="border-bottom: solid 1px lightgray">
+          <mat-card-title class="team-list__section-header">
+            Teams
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="team-list__card-content">
+          <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+          <mat-accordion cdkDropListGroup multi="true">
+            <mat-expansion-panel *ngFor="let team of teams" #panel (click)="setSelectedTeam(team)"
+                                 (mouseenter)="onMouseEnter(panel)"
+                                 (mouseleave)="onMouseLeave(panel, previousPanel)">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="team-list__team-header">
+                  {{team.name}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="team-list__member-list-container"
+                   cdkDropList
+                   cdkDropListOrientation="horizontal"
+                   [cdkDropListData]="team.members"
+                   (cdkDropListDropped)="drop($event, team.id)">
+                <div *ngIf="team.members.length === 0 && !isDragging"
+                     class="team-list__no-members-prompt">
+                  <span>No members on this team.</span>
+                </div>
+                <img class="team-list__member-list-photo" cdkDrag *ngFor="let member of team.members"
+                     (cdkDragStarted)="isDragging = true; previousPanel = panel"
+                     (cdkDragEnded)="isDragging = false"
+                     src="{{member.pathToPhoto}}"
+                     alt="{{member.firstName}} {{member.lastName}}"
+                     [matTooltipDisabled]="isDragging"
+                     matTooltipPosition="above"
+                     matTooltip="{{member.firstName}} {{member.lastName}}">
+              </div>
+              <mat-action-row class="team-list__acton-row">
                               <span *ngIf="showErrorPrompt(team.id, teamsWithErrors)" class="team-list__error-prompt">
                                   Team size limited to 12 members
                               </span>
-                              <span class="team-list__member-counter">{{team.members.length}}/12</span>
-                              <span (click)="openAddMemberDialog(team)"
-                                    class="team-list__add-member"
-                                    matTooltipPosition="above"
-                                    matTooltip="Add Member">
+                <span class="team-list__member-counter">{{team.members.length}}/12</span>
+                <span (click)="openAddMemberDialog(team)"
+                      class="team-list__add-member"
+                      matTooltipPosition="above"
+                      matTooltip="Add Member">
                                   <mat-icon class="team-list__icon">person_add</mat-icon>
                               </span>
-                          </mat-action-row>
-                      </mat-expansion-panel>
-                  </mat-accordion>
-              </mat-card-content>
-              <mat-card-actions class="team-list__card-actions">
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-card-content>
+        <mat-card-actions class="team-list__card-actions">
                   <span class="team-list__action-buttons"
                         matTooltipPosition="above"
                         matTooltip="Restore From Archive">
                       <mat-icon class="team-list__icon">settings_backup_restore</mat-icon>
                   </span>
-                  <span (click)="openAddTeamDialog()"
-                        class="team-list__action-buttons"
-                        matTooltipPosition="above"
-                        matTooltip="Add Team">
+          <span (click)="openAddTeamDialog()"
+                class="team-list__action-buttons"
+                matTooltipPosition="above"
+                matTooltip="Add Team">
                       <mat-icon class="team-list__icon">add_box</mat-icon>
                   </span>
-              </mat-card-actions>
-          </div>
-      </mat-card>
+        </mat-card-actions>
+      </div>
+    </mat-card>
   `,
   styleUrls: ['./team-list.component.scss']
 })
@@ -174,7 +174,9 @@ export class TeamListComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(newMember => {
-        this.selectedTeam.members.push(newMember);
+        if (newMember) {
+          this.selectedTeam.members.push(newMember);
+        }
       });
     }
   }

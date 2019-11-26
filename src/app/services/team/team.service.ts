@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Team } from '../../models/team.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamService {
 
-  // TODO: setup fancy environment variables
-
-  // baseURL = 'http://localhost:8080/team/';
-  baseURL = 'https://viz-teams-back.herokuapp.com/team/';
+  baseURL = environment.backend.url + '/team/';
 
   constructor(private http: HttpClient) {
   }

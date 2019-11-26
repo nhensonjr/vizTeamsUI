@@ -1,27 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HistoryService {
 
-  // TODO: setup fancy environment variables
-
-  // memberHistoryUrl = 'http://localhost:8080/history/';
-  // teamHistoryUrl = 'http://localhost:8080/history-team/';
-  memberHistoryUrl = 'https://viz-teams-back.herokuapp.com/history/';
-  teamHistoryUrl = 'https://viz-teams-back.herokuapp.com/history-team/';
-
   constructor(private http: HttpClient) {
   }
 
   getMemberHistory(memberId: number): Observable<any> {
-    return this.http.get(this.memberHistoryUrl + memberId);
+    const memberHistory = '/history/' + memberId;
+
+    return this.http.get(environment.backend.url + memberHistory);
   }
 
   getTeamHistory(teamId: number): Observable<any> {
-    return this.http.get(this.teamHistoryUrl + teamId);
+    const teamHistory = '/history-team/' + teamId;
+    return this.http.get(environment.backend.url + teamHistory);
   }
 }
